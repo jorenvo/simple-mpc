@@ -3,10 +3,8 @@
 (setq simple-mpc-current-playlist-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map "q" 'simple-mpc-current-playlist-quit)
-    (define-key map (kbd "RET") 'simple-mpc-play-current-line)
+    (define-key map (kbd "<return>") 'simple-mpc-play-current-line)
     (define-key map "d" 'simple-mpc-delete)
-    (define-key map "f" (lambda () (interactive) (simple-mpc-seek 5)))
-    (define-key map "b" (lambda () (interactive) (simple-mpc-seek -5)))
     map))
 
 (define-derived-mode simple-mpc-current-playlist-mode special-mode "simple-mpc-current-playlist"
@@ -55,9 +53,5 @@ region is active, it deletes all the tracks in the region."
 	(call-mpc nil "del" (mapcar 'number-to-string (number-sequence first-line-region last-line-region))))
     (call-mpc nil "del" (number-to-string (line-number-at-pos (point)))))
   (simple-mpc-view-current-playlist))
-
-(defun simple-mpc-seek (time-in-seconds)
-  (interactive)
-  (call-mpc nil "seek" (number-to-string time-in-seconds)))
 
 (provide 'simple-mpc-current-playlist)
