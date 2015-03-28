@@ -41,7 +41,7 @@
 (defun simple-mpc-play-current-line ()
   "Plays the song on the current line."
   (interactive)
-  (call-process "mpc" nil nil nil "play" (number-to-string (simple-mpc-get-point-line))))
+  (call-process "mpc" nil nil nil "play" (number-to-string (line-number-at-pos (point)))))
 
 (defun simple-mpc-delete ()
   "Deletes the song on the current line from the playlist. When a

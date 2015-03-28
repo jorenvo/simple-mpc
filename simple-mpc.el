@@ -18,7 +18,7 @@
     (define-key map "f" (lambda () (interactive) (simple-mpc-seek 5)))
     (define-key map "b" (lambda () (interactive) (simple-mpc-seek -5)))
     (define-key map "c" 'simple-mpc-view-current-playlist)
-    (define-key map "Q" 'simple-mpc-query)
+    (define-key map "s" 'simple-mpc-query)
     (define-key map "q" 'simple-mpc-quit)
     map))
 
@@ -74,7 +74,7 @@
 	      "      * seek [b]ackward\n"
 	      "\n   * playlist\n"
 	      "      * view [c]urrent playlist\n"
-	      "      * do [Q]uery\n"
+	      "      * [s]earch database\n"
 	      "\n* [q]uit")
       (simple-mpc-mode) ; start major mode
       (switch-to-buffer buf))))
