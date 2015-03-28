@@ -8,4 +8,14 @@
       (apply (partial-mpc destination action) mpc-args)
     (funcall (partial-mpc destination action) mpc-args)))
 
+(defun simple-mpc-get-current-playlist-position ()
+  (with-temp-buffer
+    (call-mpc t "current" ("-f" "%position%"))
+    (string-to-number (buffer-string))))
+
+(defun simple-mpc-get-amount-of-songs-in-playlist ()
+  (with-temp-buffer
+    (call-mpc t "playlist")
+    (count-lines (point-min) (point-max))))
+
 (provide 'simple-mpc-utils)

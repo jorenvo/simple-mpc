@@ -15,6 +15,12 @@
         overwrite-mode 'overwrite-mode-binary)
   (set (make-local-variable 'require-final-newline) nil))
 
+(defun simple-mpc-query-quit ()
+  "Quits the current playlist mode and goes back to main."
+  (interactive)
+  (kill-buffer simple-mpc-query-buffer-name)
+  (switch-to-buffer simple-mpc-main-buffer-name))
+
 (defun simple-mpc-query (search-type search-query)
   "Perform an mpc search. SEARCH-TYPE is a tag type, SEARCH-QUERY
 is the actual query."
@@ -35,11 +41,6 @@ is the actual query."
       (beginning-of-buffer)
       (simple-mpc-query-mode)
       (switch-to-buffer buf))))
-
-(defun simple-mpc-get-amount-of-songs-in-playlist ()
-  (with-temp-buffer
-    (call-mpc t "playlist")
-    (count-lines (point-min) (point-max))))
 
 (defun simple-mpc-query-add (&optional play)
   "Add the song on the current line to the current playlist. When
@@ -63,11 +64,5 @@ current playlist. When PLAY is non-nil, immediately play them."
       (forward-line))
     (if play
 	(call-mpc nil "play" (number-to-string (1+ current-amount-in-playlist))))))
-
-(defun simple-mpc-query-quit ()
-  "Quits the current playlist mode and goes back to main."
-  (interactive)
-  (kill-buffer simple-mpc-query-buffer-name)
-  (switch-to-buffer simple-mpc-main-buffer-name))
 
 (provide 'simple-mpc-query)

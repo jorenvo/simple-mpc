@@ -1,5 +1,6 @@
 (require 'simple-mpc-current-playlist "~/code/github/simple-mpc/simple-mpc-current-playlist.el")
 (require 'simple-mpc-query "~/code/github/simple-mpc/simple-mpc-query.el")
+(require 'simple-mpc-vars "~/code/github/simple-mpc/simple-mpc-vars.el")
 
 (defconst simple-mpc-main-buffer-name "*simple-mpc-main*"
   "*internal* Name of the simple-mpc buffer.")
@@ -18,6 +19,8 @@
     (define-key map "f" (lambda () (interactive) (simple-mpc-seek 5)))
     (define-key map "b" (lambda () (interactive) (simple-mpc-seek -5)))
     (define-key map "c" 'simple-mpc-view-current-playlist)
+    (define-key map "C" 'simple-mpc-clear-current-playlist)
+    (define-key map "l" 'simple-mpc-load-playlist)
     (define-key map "s" 'simple-mpc-query)
     (define-key map "q" 'simple-mpc-quit)
     map))
@@ -38,13 +41,6 @@
 	      (kill-buffer buf)))
 	(list simple-mpc-main-buffer-name simple-mpc-current-playlist-buffer-name simple-mpc-query-buffer-name)))
 
-(defun simple-mpc-seek (time-in-seconds)
-  (interactive)
-  (let ((time-string (number-to-string time-in-seconds)))
-    (if (> time-in-seconds 0)
-	(setq time-string (concat "+" time-string)))
-    (call-mpc nil "seek" time-string)))
-
 (defun simple-mpc-toggle ()
   (interactive)
   (call-mpc nil "toggle"))
@@ -56,6 +52,29 @@
 (defun simple-mpc-prev ()
   (interactive)
   (call-mpc nil "prev"))
+
+(defun simple-mpc-seek (time-in-seconds)
+  (interactive)
+  (let ((time-string (number-to-string time-in-seconds)))
+    (if (> time-in-seconds 0)
+	(setq time-string (concat "+" time-string)))
+    (call-mpc nil "seek" time-string)))
+
+(defun simple-mpc-clear-current-playlist ()
+  (interactive)
+  (call-mpc nil "clear")
+  (message "%s" "Cleared current playlist."))
+
+(defun simple-mpc-load-playlist (playlist-name)
+  "Load an MPD playlist. Provides completion for playlists stored
+in variable `simple-mpc-mpd-playlist-directory'."
+  (interactive
+   (list
+    (completing-read "Playlist: "
+		     (mapcar 'file-name-sans-extension
+			     (directory-files simple-mpc-mpd-playlist-directory nil "[a-zA-Z]+")))))
+  (message "%s %s" "Loading playlist" playlist-name)
+  (call-mpc nil "load" playlist-name))
 
 ;;;###autoload
 (defun simple-mpc ()
@@ -74,6 +93,8 @@
 	      "      * seek [b]ackward\n"
 	      "\n   * playlist\n"
 	      "      * view [c]urrent playlist\n"
+	      "      * [C]lear current playlist\n"
+	      "      * [l]oad playlist\n"
 	      "      * [s]earch database\n"
 	      "\n* [q]uit")
       (simple-mpc-mode) ; start major mode

@@ -15,11 +15,6 @@
         overwrite-mode 'overwrite-mode-binary)
   (set (make-local-variable 'revert-buffer-function) #'simple-mpc-view-current-playlist))
 
-(defun simple-mpc-get-current-playlist-position ()
-  (with-temp-buffer
-    (call-mpc t "current" ("-f" "%position%"))
-    (string-to-number (buffer-string))))
-
 (defun simple-mpc-current-playlist-quit ()
   "Quits the current playlist mode and goes back to main."
   (interactive)
