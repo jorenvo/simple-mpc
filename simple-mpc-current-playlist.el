@@ -31,7 +31,8 @@
       (call-mpc buf "playlist")
       (goto-line (simple-mpc-get-current-playlist-position))
       (switch-to-buffer buf)
-      (simple-mpc-current-playlist-mode))))
+      (simple-mpc-current-playlist-mode)
+      (hl-line-mode))))
 
 (defun simple-mpc-play-current-line ()
   "Plays the song on the current line."

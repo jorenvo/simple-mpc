@@ -40,6 +40,7 @@ is the actual query."
       (delete-char -1) ;; remove trailing newline (from mpc)
       (beginning-of-buffer)
       (simple-mpc-query-mode)
+      (hl-line-mode)
       (switch-to-buffer buf))))
 
 (defun simple-mpc-query-add (&optional play)
