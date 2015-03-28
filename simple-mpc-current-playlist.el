@@ -28,7 +28,7 @@
     (with-current-buffer buf
       (read-only-mode -1)
       (erase-buffer)
-      (call-mpc nil "playlist")
+      (call-mpc buf "playlist")
       (goto-line (simple-mpc-get-current-playlist-position))
       (switch-to-buffer buf)
       (simple-mpc-current-playlist-mode))))
@@ -36,7 +36,7 @@
 (defun simple-mpc-play-current-line ()
   "Plays the song on the current line."
   (interactive)
-  (call-mpc "play" (number-to-string (line-number-at-pos (point)))))
+  (call-mpc nil "play" (number-to-string (line-number-at-pos (point)))))
 
 (defun simple-mpc-delete ()
   "Deletes the song on the current line from the playlist. When a
