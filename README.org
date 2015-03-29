@@ -41,7 +41,7 @@ occasionally there were bugs and interface choices that I disagreed
 with. After looking through the source code in an attempt to fix these
 issues I came to the conclusion that it would be better to implement
 my own mode. A big reason for this decision was the fact that mingus
-uses it's own MPD library implementation called [[https://github.com/pft/mingus/blob/master/libmpdee.el][libmpdee.el]], which I
+uses its own MPD library implementation called [[https://github.com/pft/mingus/blob/master/libmpdee.el][libmpdee.el]], which I
 expect contain some obscure bugs. I think it is a better choice to
 instead take advantage of mpc, a small program that is maintained by
 MPD developers and implements more than libmpdee.el. On top of that it
@@ -51,7 +51,7 @@ does have more features though).
 
 GNU Emacs also contains [[http://git.savannah.gnu.org/cgit/emacs.git/tree/lisp/mpc.el][mpc.el]] written by Stefan Monnier. It's
 interesting but wasn't really what I was looking for, partly because
-of it's interface (inspired by [[https://wiki.gnome.org/Apps/Rhythmbox][Rhythmbox]]), and partly because it's not
+of its interface (inspired by [[https://wiki.gnome.org/Apps/Rhythmbox][Rhythmbox]]), and partly because it's not
 particularly well documented.
 # ** Things that still need to be done
 # *** DONE Deal with empty results in simple-mpc-query
