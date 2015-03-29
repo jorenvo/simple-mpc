@@ -62,7 +62,11 @@ is the actual query."
       (erase-buffer)
       (call-mpc t "search" (list search-type search-query))
       (goto-char (point-max))
-      (delete-char -1) ;; remove trailing newline (from mpc)
+
+      ;; remove trailing newline (from mpc)
+      ;; delete-char errors when it can't delete, ignore that
+      (ignore-errors (delete-char -1))
+
       (goto-char (point-min))
       (simple-mpc-query-mode)
       (hl-line-mode)
