@@ -10,7 +10,7 @@
 
 (defun simple-mpc-get-current-playlist-position ()
   (with-temp-buffer
-    (call-mpc t "current" ("-f" "%position%"))
+    (call-mpc t "current" (list "-f" "%position%"))
     (string-to-number (buffer-string))))
 
 (defun simple-mpc-get-amount-of-songs-in-playlist ()

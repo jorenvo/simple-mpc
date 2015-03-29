@@ -1,17 +1,15 @@
-(require 'simple-mpc-current-playlist "~/code/github/simple-mpc/simple-mpc-current-playlist.el")
-(require 'simple-mpc-query "~/code/github/simple-mpc/simple-mpc-query.el")
-(require 'simple-mpc-vars "~/code/github/simple-mpc/simple-mpc-vars.el")
+(require 'simple-mpc-current-playlist)
+(require 'simple-mpc-query)
+(require 'simple-mpc-vars)
 
-(defconst simple-mpc-main-buffer-name "*simple-mpc-main*"
-  "*internal* Name of the simple-mpc buffer.")
-(defconst simple-mpc-current-playlist-buffer-name "*simple-mpc-current-playlist*"
-  "*internal* Name of the simple-mpc buffer for the current playlist.")
-(defconst simple-mpc-query-buffer-name "*simple-mpc-query*"
-  "*internal* Name of the simple-mpc query buffer.")
+(defvar simple-mpc-main-buffer-name "*simple-mpc-main*"
+  "Name of the simple-mpc buffer.")
+(defvar simple-mpc-current-playlist-buffer-name "*simple-mpc-current-playlist*"
+  "Name of the simple-mpc buffer for the current playlist.")
+(defvar simple-mpc-query-buffer-name "*simple-mpc-query*"
+  "Name of the simple-mpc query buffer.")
 
-;; `setq' always assigns a value. `defvar' assigns a value only the
-;; first time it is evaluated, normally, bu
-(setq simple-mpc-mode-map
+(defvar simple-mpc-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map "t" 'simple-mpc-toggle)
     (define-key map "n" 'simple-mpc-next)
@@ -23,7 +21,8 @@
     (define-key map "l" 'simple-mpc-load-playlist)
     (define-key map "s" 'simple-mpc-query)
     (define-key map "q" 'simple-mpc-quit)
-    map))
+    map)
+  "Keymap for the *simple-mpc-main*.")
 
 (define-derived-mode simple-mpc-mode special-mode "simple-mpc"
   "Major mode for the simple-mpc screen.

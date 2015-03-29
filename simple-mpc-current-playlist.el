@@ -1,11 +1,12 @@
-(require 'simple-mpc-utils "~/code/github/simple-mpc/simple-mpc-utils.el")
+(require 'simple-mpc-utils)
 
-(setq simple-mpc-current-playlist-mode-map
+(defvar simple-mpc-current-playlist-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map "q" 'simple-mpc-current-playlist-quit)
     (define-key map (kbd "<return>") 'simple-mpc-play-current-line)
     (define-key map "d" 'simple-mpc-delete)
-    map))
+    map)
+  "Keymap for the *simple-mpc-current-playlist* buffer.")
 
 (define-derived-mode simple-mpc-current-playlist-mode special-mode "simple-mpc-current-playlist"
   "Major mode for the simple-mpc-current-playlist screen.

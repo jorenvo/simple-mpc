@@ -1,11 +1,12 @@
-(require 'simple-mpc-utils "~/code/github/simple-mpc/simple-mpc-utils.el")
+(require 'simple-mpc-utils)
 
-(setq simple-mpc-query-mode-map
+(defvar simple-mpc-query-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map "q" 'simple-mpc-query-quit)
     (define-key map (kbd "<return>") (lambda () (interactive) (simple-mpc-query-add)))
     (define-key map (kbd "<S-return>") (lambda () (interactive) (simple-mpc-query-add t)))
-    map))
+    map)
+  "Keymap for the *simple-mpc-query* buffer.")
 
 (define-derived-mode simple-mpc-query-mode special-mode "simple-mpc-query"
   "Major mode for the simple-mpc-query screen.
