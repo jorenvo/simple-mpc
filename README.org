@@ -1,0 +1,61 @@
+* simple-mpc
+A GNU Emacs major mode that acts as a front end to [[http://www.musicpd.org/clients/mpc/][mpc]].
+** Requirements
+- [[https://www.gnu.org/software/emacs/][GNU Emacs 24]]
+- [[http://www.musicpd.org/][Music Player Daemon]]
+- [[http://www.musicpd.org/clients/mpc/][mpc]]
+** Installation
+- Clone the repository
+- Add it to your emacs init:
+#+BEGIN_SRC lisp
+(add-to-list 'load-path "path/to/simple-mpc")
+(require 'simple-mpc)
+#+END_SRC
+** Usage
+*** Quickstart
+Start by executing =M-x simple-mpc=. The rest of the keybindings now
+appear in a buffer. Configuration can be done with =M-x
+customize-group <RET> simple-mpc=.
+*** Structure
+Simple-mpc consists of three 'views', two of which have their own
+minor mode that implements specific extra functionality:
+
+|------------------+-----------------+----------------------------------|
+| view             | major mode      | minor mode                       |
+|------------------+-----------------+----------------------------------|
+| main             | simple-mpc-mode | /                                |
+| query            | simple-mpc-mode | simple-mpc-query-mode            |
+| current playlist | simple-mpc-mode | simple-mpc-current-playlist-mode |
+|------------------+-----------------+----------------------------------|
+
+simple-mpc-mode is always active and contains the most common
+bindings, which can be viewed with =C-h m=. Additional functionality
+is added with minor modes. Someone who does not like the interface can
+use =simple-mpc-query-mode= and =simple-mpc-current-playlist-mode=
+directly.
+** History
+This mode was inspired by [[https://github.com/pft/mingus][mingus]] written by Niels Giesen and parts of
+the interface were inspired by [[http://www.djcbsoftware.nl/code/mu/mu4e.html][mu4e]] written by Dirk-Jan C. Binnema. I
+used mingus for > 4 years and was mostly happy with it, but
+occasionally there were bugs and interface choices that I disagreed
+with. After looking through the source code in an attempt to fix these
+issues I came to the conclusion that it would be better to implement
+my own mode. A big reason for this decision was the fact that mingus
+uses it's own MPD library implementation called [[https://github.com/pft/mingus/blob/master/libmpdee.el][libmpdee.el]], which I
+expect contain some obscure bugs. I think it is a better choice to
+instead take advantage of mpc, a small program that is maintained by
+MPD developers and implements more than libmpdee.el. On top of that it
+makes the major mode much smaller and easier to maintain. Currently
+simple-mpc consists of ~300 LOC versus ~5000 LOC for mingus (mingus
+does have more features though).
+
+GNU Emacs also contains [[http://git.savannah.gnu.org/cgit/emacs.git/tree/lisp/mpc.el][mpc.el]] written by Stefan Monnier. It's
+interesting but wasn't really what I was looking for, partly because
+of it's interface (inspired by [[https://wiki.gnome.org/Apps/Rhythmbox][Rhythmbox]]), and partly because it's not
+particularly well documented.
+# ** Things that still need to be done
+# *** DONE Deal with empty results in simple-mpc-query
+# *** DONE Turn simple-mpc-query and simple-mpc-current-playlist into minor modes
+# *** DONE Sort simple-mpc-query
+# *** TODO Faces
+# *** TODO Make more vars customizable
