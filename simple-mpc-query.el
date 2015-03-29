@@ -54,7 +54,7 @@ is the actual query."
     (completing-read "Search type: " '("artist" "album" "title" "track"
 				       "name" "genre" "date" "composer"
 				       "performer" "comment" "disc" "filename"
-				       "any"))
+				       "any") nil t)
     (read-string "Query: ")))
   (let ((buf (get-buffer-create simple-mpc-query-buffer-name)))
     (with-current-buffer buf
