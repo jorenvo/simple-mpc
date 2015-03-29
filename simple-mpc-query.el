@@ -27,6 +27,7 @@
 (defvar simple-mpc-query-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map "q" 'simple-mpc-query-quit)
+    (define-key map "S" 'simple-mpc-query-sort)
     (define-key map (kbd "<return>") (lambda () (interactive) (simple-mpc-query-add)))
     (define-key map (kbd "<S-return>") (lambda () (interactive) (simple-mpc-query-add t)))
     map)
@@ -94,5 +95,12 @@ current playlist. When PLAY is non-nil, immediately play them."
       (forward-line))
     (if play
 	(call-mpc nil "play" (number-to-string (1+ current-amount-in-playlist))))))
+
+(defun simple-mpc-query-sort (&optional reverse)
+  "Sorts all query results alphabetically."
+  (interactive)
+  (read-only-mode -1)
+  (sort-lines reverse (point-min) (point-max))
+  (read-only-mode 1))
 
 (provide 'simple-mpc-query)
