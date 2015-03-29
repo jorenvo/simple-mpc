@@ -24,20 +24,15 @@
 
 (require 'simple-mpc-utils)
 
-(defvar simple-mpc-current-playlist-mode-map
-  (let ((map (make-sparse-keymap)))
-    (define-key map "q" 'simple-mpc-current-playlist-quit)
-    (define-key map (kbd "<return>") 'simple-mpc-play-current-line)
-    (define-key map "d" 'simple-mpc-delete)
-    map)
-  "Keymap for the *simple-mpc-current-playlist* buffer.")
-
-(define-derived-mode simple-mpc-current-playlist-mode special-mode "simple-mpc-current-playlist"
-  "Major mode for the simple-mpc-current-playlist screen.
+(define-minor-mode simple-mpc-current-playlist-mode
+  "Minor mode for the simple-mpc-current-playlist screen.
 \\{simple-mpc-current-playlist-mode-map}."
-  (use-local-map simple-mpc-current-playlist-mode-map)
-  (setq truncate-lines t
-        overwrite-mode 'overwrite-mode-binary)
+  :lighter " simple-mpc-current-playlist"
+  :keymap (let ((map (make-sparse-keymap)))
+	    (define-key map (kbd "<return>") 'simple-mpc-play-current-line)
+	    (define-key map "d" 'simple-mpc-delete)
+	    (define-key map "q" 'simple-mpc-current-playlist-quit)
+	    map)
   (set (make-local-variable 'revert-buffer-function) #'simple-mpc-view-current-playlist))
 
 (defun simple-mpc-current-playlist-quit ()
@@ -56,6 +51,7 @@
       (call-mpc buf "playlist")
       (goto-line (simple-mpc-get-current-playlist-position))
       (switch-to-buffer buf)
+      (simple-mpc-mode)
       (simple-mpc-current-playlist-mode)
       (hl-line-mode))))
 
