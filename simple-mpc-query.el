@@ -24,21 +24,16 @@
 
 (require 'simple-mpc-utils)
 
-(defvar simple-mpc-query-mode-map
-  (let ((map (make-sparse-keymap)))
-    (define-key map "q" 'simple-mpc-query-quit)
-    (define-key map "S" 'simple-mpc-query-sort)
-    (define-key map (kbd "<return>") (lambda () (interactive) (simple-mpc-query-add)))
-    (define-key map (kbd "<S-return>") (lambda () (interactive) (simple-mpc-query-add t)))
-    map)
-  "Keymap for the *simple-mpc-query* buffer.")
-
-(define-derived-mode simple-mpc-query-mode special-mode "simple-mpc-query"
-  "Major mode for the simple-mpc-query screen.
+(define-minor-mode simple-mpc-query-mode
+  "Minor mode for the simple-mpc-query screen.
 \\{simple-mpc-query-mode-map}."
-  (use-local-map simple-mpc-query-mode-map)
-  (setq truncate-lines t
-        overwrite-mode 'overwrite-mode-binary)
+  :lighter " simple-mpc-query-mode"
+  :keymap (let ((map (make-sparse-keymap)))
+	    (define-key map "q" 'simple-mpc-query-quit)
+	    (define-key map "S" 'simple-mpc-query-sort)
+	    (define-key map (kbd "<return>") (lambda () (interactive) (simple-mpc-query-add)))
+	    (define-key map (kbd "<S-return>") (lambda () (interactive) (simple-mpc-query-add t)))
+	    map)
   (set (make-local-variable 'require-final-newline) nil))
 
 (defun simple-mpc-query-quit ()
@@ -69,6 +64,7 @@ is the actual query."
       (ignore-errors (delete-char -1))
 
       (goto-char (point-min))
+      (simple-mpc-mode)
       (simple-mpc-query-mode)
       (hl-line-mode)
       (switch-to-buffer buf))))
