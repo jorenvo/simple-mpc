@@ -23,7 +23,7 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Commentary:
-;;
+;; See README.org
 
 (require 'simple-mpc-current-playlist)
 (require 'simple-mpc-query)
