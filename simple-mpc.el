@@ -65,7 +65,9 @@
   (mapc (lambda (buf)
 	  (if (buffer-live-p (get-buffer buf))
 	      (kill-buffer buf)))
-	(list simple-mpc-main-buffer-name simple-mpc-current-playlist-buffer-name simple-mpc-query-buffer-name)))
+	(list simple-mpc-main-buffer-name
+	      simple-mpc-current-playlist-buffer-name
+	      simple-mpc-query-buffer-name)))
 
 (defun simple-mpc-toggle ()
   (interactive)

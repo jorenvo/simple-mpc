@@ -90,7 +90,9 @@ current playlist. When PLAY is non-nil, immediately play them."
 	    (setq beginning-first-line-region (line-beginning-position))
 	    (goto-line last-line-region)
 	    (setq end-last-line-region (line-end-position)))
-	  (call-mpc nil "add" (split-string (buffer-substring beginning-first-line-region end-last-line-region) "\n" t))
+	  (call-mpc nil "add" (split-string (buffer-substring beginning-first-line-region
+							      end-last-line-region)
+					    "\n" t))
 	  (deactivate-mark))
       (call-mpc nil "add" (buffer-substring-no-properties (line-beginning-position) (line-end-position)))
       (forward-line))
