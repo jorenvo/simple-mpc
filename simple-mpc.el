@@ -41,8 +41,8 @@
     (define-key map "t" 'simple-mpc-toggle)
     (define-key map "n" 'simple-mpc-next)
     (define-key map "p" 'simple-mpc-prev)
-    (define-key map "f" (lambda () (interactive) (simple-mpc-seek 5)))
-    (define-key map "b" (lambda () (interactive) (simple-mpc-seek -5)))
+    (define-key map "f" 'simple-mpc-seek-forward)
+    (define-key map "b" 'simple-mpc-seek-backward)
     (define-key map "c" 'simple-mpc-view-current-playlist)
     (define-key map "C" 'simple-mpc-clear-current-playlist)
     (define-key map "l" 'simple-mpc-load-playlist)
@@ -79,8 +79,17 @@
   (interactive)
   (call-mpc nil "prev"))
 
-(defun simple-mpc-seek (time-in-seconds)
+(defun simple-mpc-seek-forward ()
+  "Does a relative seek forward by `simple-mpc-seek-time-in-s' seconds."
   (interactive)
+  (simple-mpc-seek-internal simple-mpc-seek-time-in-s))
+
+(defun simple-mpc-seek-backward ()
+  "Does a relative seek backward by -`simple-mpc-seek-time-in-s' seconds."
+  (interactive)
+  (simple-mpc-seek-internal (- simple-mpc-seek-time-in-s)))
+
+(defun simple-mpc-seek-internal (time-in-seconds)
   (let ((time-string (number-to-string time-in-seconds)))
     (if (> time-in-seconds 0)
 	(setq time-string (concat "+" time-string)))
