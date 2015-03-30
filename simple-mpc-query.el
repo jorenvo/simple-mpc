@@ -31,8 +31,8 @@
   :keymap (let ((map (make-sparse-keymap)))
 	    (define-key map "q" 'simple-mpc-query-quit)
 	    (define-key map "S" 'simple-mpc-query-sort)
-	    (define-key map (kbd "<return>") (lambda () (interactive) (simple-mpc-query-add)))
-	    (define-key map (kbd "<S-return>") (lambda () (interactive) (simple-mpc-query-add t)))
+	    (define-key map (kbd "<return>") 'simple-mpc-query-add)
+	    (define-key map (kbd "<S-return>") 'simple-mpc-query-add-and-play)
 	    map)
   (set (make-local-variable 'require-final-newline) nil))
 
@@ -68,6 +68,11 @@ is the actual query."
       (simple-mpc-query-mode)
       (hl-line-mode)
       (switch-to-buffer buf))))
+
+(defun simple-mpc-query-add-and-play ()
+  "Wrapper for (`simple-mpc-query-add' t)."
+  (interactive)
+  (simple-mpc-query-add t))
 
 (defun simple-mpc-query-add (&optional play)
   "Add the song on the current line to the current playlist. When
