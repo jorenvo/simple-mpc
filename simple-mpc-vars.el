@@ -32,4 +32,14 @@ playlists."
   :group 'simple-mpc
   :type 'directory)
 
+(defface simple-mpc-main-name
+  '((t :inherit font-lock-type-face :bold t))
+  "For the title in the main view."
+  :group 'simple-mpc)
+
+(defface simple-mpc-main-headers
+  '((t :inherit font-lock-type-face))
+  "For the different headers in the main view."
+  :group 'simple-mpc)
+
 (provide 'simple-mpc-vars)

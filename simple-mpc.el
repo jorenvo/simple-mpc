@@ -110,19 +110,21 @@ in variable `simple-mpc-mpd-playlist-directory'."
     (with-current-buffer buf
       (read-only-mode -1)
       (erase-buffer)
-      (insert "* simple-mpc mode *\n\n"
-	      "   * controls\n"
+      (insert (propertize "* simple-mpc mode *\n\n"
+			  'face 'simple-mpc-main-name)
+	      (propertize "   * controls\n" 'face 'simple-mpc-main-headers)
 	      "      * [t]oggle\n"
 	      "      * [n]ext track\n"
 	      "      * [p]revious track\n"
 	      "      * seek [f]orward\n"
 	      "      * seek [b]ackward\n"
-	      "\n   * playlist\n"
+	      (propertize "\n   * playlist\n" 'face 'simple-mpc-main-headers)
 	      "      * view [c]urrent playlist\n"
 	      "      * [C]lear current playlist\n"
 	      "      * [l]oad playlist\n"
 	      "      * [s]earch database\n"
-	      "\n* [q]uit")
+	      (propertize "\n   * misc\n" 'face 'simple-mpc-main-headers)
+	      "      * [q]uit")
       (simple-mpc-mode) ; start major mode
       (switch-to-buffer buf))))
 
