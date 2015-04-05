@@ -82,7 +82,9 @@ current playlist. When PLAY is non-nil, immediately play them."
   (let ((current-amount-in-playlist (simple-mpc-get-amount-of-songs-in-playlist)))
     (if (use-region-p)
 	(let ((first-line-region (line-number-at-pos (region-beginning)))
-	      (last-line-region (1- (line-number-at-pos (region-end)))) ; usually point is on the next line so 1-
+	      (last-line-region (if (eq (region-end) (point-max))
+				    (line-number-at-pos (region-end))
+				  (1- (line-number-at-pos (region-end))))) ; usually point is on the next line so 1-
 	      (beginning-first-line-region)
 	      (end-last-line-region))
 	  (save-excursion
