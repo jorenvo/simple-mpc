@@ -27,6 +27,8 @@
 
 ;;; Code:
 
+(require 'simple-mpc-current-playlist)
+(require 'simple-mpc-query)
 (require 'simple-mpc-vars)
 
 (defvar simple-mpc-mode-map

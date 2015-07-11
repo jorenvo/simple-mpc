@@ -26,9 +26,10 @@
 
 ;;; Code:
 
-(require 'simple-mpc)
 (require 'simple-mpc-vars)
 (require 'simple-mpc-utils)
+
+(declare-function simple-mpc-mode "./simple-mpc.el")
 
 (define-minor-mode simple-mpc-current-playlist-mode
   "Minor mode for the simple-mpc-current-playlist screen.
