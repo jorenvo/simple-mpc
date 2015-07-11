@@ -53,7 +53,7 @@
       (read-only-mode -1)
       (erase-buffer)
       (call-mpc buf "playlist")
-      (goto-line (simple-mpc-get-current-playlist-position))
+      (simple-mpc-goto-line (simple-mpc-get-current-playlist-position))
       (switch-to-buffer buf)
       (simple-mpc-mode)
       (simple-mpc-current-playlist-mode)

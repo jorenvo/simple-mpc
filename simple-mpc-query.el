@@ -92,9 +92,9 @@ current playlist. When PLAY is non-nil, immediately play them."
 	      (beginning-first-line-region)
 	      (end-last-line-region))
 	  (save-excursion
-	    (goto-line first-line-region)
+	    (simple-mpc-goto-line first-line-region)
 	    (setq beginning-first-line-region (line-beginning-position))
-	    (goto-line last-line-region)
+	    (simple-mpc-goto-line last-line-region)
 	    (setq end-last-line-region (line-end-position)))
 	  (call-mpc nil "add" (split-string (buffer-substring beginning-first-line-region
 							      end-last-line-region)

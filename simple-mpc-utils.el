@@ -46,5 +46,11 @@
     (call-mpc t "playlist")
     (count-lines (point-min) (point-max))))
 
+(defun simple-mpc-goto-line (line-number)
+  "Go to beginning of line LINE-NUMBER. Safe to be called from
+a Lisp program."
+  (goto-char (point-min))
+  (forward-line (1- line-number)))
+
 (provide 'simple-mpc-utils)
 ;;; simple-mpc-utils.el ends here
