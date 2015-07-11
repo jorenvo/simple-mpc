@@ -1,4 +1,4 @@
-;;; simple-mpc-utils.el -- part of simple-mpc
+;;; simple-mpc-utils.el --- part of simple-mpc
 ;;
 ;; Copyright (C) 2015
 
@@ -22,6 +22,10 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+;;; Commentary:
+
+;;; Code:
+
 (defun partial-mpc (destination action)
   (apply-partially 'call-process "mpc" nil destination nil action))
 
@@ -43,3 +47,4 @@
     (count-lines (point-min) (point-max))))
 
 (provide 'simple-mpc-utils)
+;;; simple-mpc-utils.el ends here

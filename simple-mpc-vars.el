@@ -1,4 +1,4 @@
-;;; simple-mpc-vars.el -- part of simple-mpc
+;;; simple-mpc-vars.el --- part of simple-mpc
 ;;
 ;; Copyright (C) 2015
 
@@ -21,6 +21,10 @@
 ;;
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+;;; Commentary:
+
+;;; Code:
 
 (defgroup simple-mpc nil
   "simple-mpc - provides a simple interface to mpc"
@@ -49,3 +53,4 @@ with `simple-mpc-seek-forward' and `simple-mpc-seek-backward'."
   :group 'simple-mpc)
 
 (provide 'simple-mpc-vars)
+;;; simple-mpc-vars.el ends here

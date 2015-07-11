@@ -1,5 +1,5 @@
-;;; simple-mpc.el -- part of simple-mpc, providing a simple interface to mpc
-;;
+;;; simple-mpc.el --- provides a simple interface to mpc
+
 ;; Copyright (C) 2015
 
 ;; Author: Joren Van Onder <joren.vanonder@gmail.com>
@@ -24,6 +24,8 @@
 
 ;;; Commentary:
 ;; See README.org
+
+;;; Code:
 
 (require 'simple-mpc-current-playlist)
 (require 'simple-mpc-query)
@@ -140,3 +142,4 @@ in variable `simple-mpc-mpd-playlist-directory'."
       (switch-to-buffer buf))))
 
 (provide 'simple-mpc)
+;;; simple-mpc.el ends here

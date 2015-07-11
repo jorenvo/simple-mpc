@@ -1,4 +1,4 @@
-;;; simple-mpc-query.el -- part of simple-mpc
+;;; simple-mpc-query.el --- part of simple-mpc
 ;;
 ;; Copyright (C) 2015
 
@@ -21,6 +21,10 @@
 ;;
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+;;; Commentary:
+
+;;; Code:
 
 (require 'simple-mpc-utils)
 
@@ -109,3 +113,4 @@ current playlist. When PLAY is non-nil, immediately play them."
   (read-only-mode 1))
 
 (provide 'simple-mpc-query)
+;;; simple-mpc-query.el ends here

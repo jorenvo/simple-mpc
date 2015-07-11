@@ -1,4 +1,4 @@
-;;; simple-mpc-current-playlist.el -- part of simple-mpc
+;;; simple-mpc-current-playlist.el --- part of simple-mpc
 ;;
 ;; Copyright (C) 2015
 
@@ -21,6 +21,10 @@
 ;;
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+;;; Commentary:
+
+;;; Code:
 
 (require 'simple-mpc-utils)
 
@@ -73,3 +77,4 @@ region is active, it deletes all the tracks in the region."
   (simple-mpc-view-current-playlist))
 
 (provide 'simple-mpc-current-playlist)
+;;; simple-mpc-current-playlist.el ends here
