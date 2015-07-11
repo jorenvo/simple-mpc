@@ -26,6 +26,8 @@
 
 ;;; Code:
 
+(require 'simple-mpc)
+(require 'simple-mpc-vars)
 (require 'simple-mpc-utils)
 
 (define-minor-mode simple-mpc-query-mode

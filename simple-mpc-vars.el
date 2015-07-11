@@ -26,6 +26,13 @@
 
 ;;; Code:
 
+(defvar simple-mpc-main-buffer-name "*simple-mpc-main*"
+  "Name of the simple-mpc buffer.")
+(defvar simple-mpc-current-playlist-buffer-name "*simple-mpc-current-playlist*"
+  "Name of the simple-mpc buffer for the current playlist.")
+(defvar simple-mpc-query-buffer-name "*simple-mpc-query*"
+  "Name of the simple-mpc query buffer.")
+
 (defgroup simple-mpc nil
   "simple-mpc - provides a simple interface to mpc"
   :group 'multimedia)
