@@ -116,7 +116,7 @@ in variable `simple-mpc-mpd-playlist-directory'."
     (with-current-buffer buf
       (read-only-mode -1)
       (erase-buffer)
-      (insert (propertize "* simple-mpc mode *\n\n"
+      (insert (propertize "* simple-mpc *\n\n"
 			  'face 'simple-mpc-main-name)
 	      (propertize "   * controls\n" 'face 'simple-mpc-main-headers)
 	      "      * [t]oggle\n"
