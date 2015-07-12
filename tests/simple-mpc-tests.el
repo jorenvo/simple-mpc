@@ -28,15 +28,20 @@
 (require 'ert)
 (require 'cl-extra)
 (require 'simple-mpc-vars)
+(require 'simple-mpc-query)
 (require 'simple-mpc)
 
-(ert-deftest simple-mpc-test-quit ()
-  "Tests that `simple-mpc-quit' cleans up as it should."
-  (simple-mpc-quit)
+(defun simple-mpc-test-dead ()
+  "Tests that all simple-mpc buffers are cleaned up."
   (should-not (cl-some (lambda (buffer-name) (get-buffer buffer-name))
                        (list simple-mpc-main-buffer-name
                              simple-mpc-current-playlist-buffer-name
                              simple-mpc-query-buffer-name))))
+
+(ert-deftest simple-mpc-test-quit ()
+  "Tests that `simple-mpc-quit' cleans up as it should."
+  (simple-mpc-quit)
+  (simple-mpc-test-dead))
 
 (ert-deftest simple-mpc-test-main-screen ()
   "Tests that the main 'splash' screen is displayed after running
@@ -44,6 +49,22 @@
   (save-window-excursion
     (simple-mpc)
     (should (get-buffer simple-mpc-main-buffer-name))))
+
+(ert-deftest simple-mpc-test-direct-query-quit ()
+  "Tests that after calling `simple-mpc-query' directly quitting
+does not go to main screen."
+  (save-window-excursion
+    (simple-mpc-query "artist" "")
+    (simple-mpc-query-quit)
+    (simple-mpc-test-dead)))
+
+(ert-deftest simple-mpc-test-direct-playlist-quit ()
+  "Tests that after calling `simple-mpc-view-current-playlist'
+directly quitting does not go to main screen."
+  (save-window-excursion
+    (simple-mpc-view-current-playlist)
+    (simple-mpc-current-playlist-quit)
+    (simple-mpc-test-dead)))
 
 (provide 'simple-mpc-tests)
 ;;; simple-mpc-tests.el ends here
