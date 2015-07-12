@@ -47,7 +47,7 @@
   "Quits the current playlist mode and goes back to main."
   (interactive)
   (kill-buffer simple-mpc-query-buffer-name)
-  (switch-to-buffer simple-mpc-main-buffer-name))
+  (simple-mpc-switch-to-main-buffer))
 
 (defun simple-mpc-query (search-type search-query)
   "Perform an mpc search. SEARCH-TYPE is a tag type, SEARCH-QUERY

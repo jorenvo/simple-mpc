@@ -46,7 +46,7 @@
   "Quits the current playlist mode and goes back to main."
   (interactive)
   (kill-buffer simple-mpc-current-playlist-buffer-name)
-  (switch-to-buffer simple-mpc-main-buffer-name))
+  (simple-mpc-switch-to-main-buffer))
 
 (defun simple-mpc-view-current-playlist (&optional ignore-auto noconfirm)
   "Views the current playlist."

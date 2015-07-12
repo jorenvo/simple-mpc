@@ -26,6 +26,8 @@
 
 ;;; Code:
 
+(require 'simple-mpc-vars)
+
 (defun partial-mpc (destination action)
   (apply-partially 'call-process "mpc" nil destination nil action))
 
@@ -51,6 +53,11 @@
 a Lisp program."
   (goto-char (point-min))
   (forward-line (1- line-number)))
+
+(defun simple-mpc-switch-to-main-buffer ()
+  "Switches to the main mpc buffer."
+  (if (get-buffer simple-mpc-main-buffer-name)
+      (switch-to-buffer simple-mpc-main-buffer-name)))
 
 (provide 'simple-mpc-utils)
 ;;; simple-mpc-utils.el ends here
