@@ -18,6 +18,10 @@ install:
         sudo apt-get -qq install emacs-snapshot &&
         sudo apt-get -qq install emacs-snapshot-el;
     fi
+  - sudo apt-get install mpd mpc
   - $EMACS --version
+before-script:
+  - mpd &
 script:
+  - mpc status
   - $EMACS -Q -L "." --batch --eval "(progn (load-file \"tests/simple-mpc-tests.el\") (ert-run-tests-batch-and-exit))"
