@@ -1,0 +1,23 @@
+language: generic
+env:
+  matrix:
+    # - EMACS=emacs24 ## This is Emacs 24.3
+    - EMACS=emacs-snapshot
+install:
+  - if [ "$EMACS" = 'emacs24' ]; then
+        sudo add-apt-repository -y ppa:cassou/emacs &&
+        sudo apt-get -qq update &&
+        sudo apt-get -qq -f install &&
+        sudo apt-get -qq install emacs24 &&
+        sudo apt-get -qq install emacs24-el;
+    fi
+  - if [ "$EMACS" = 'emacs-snapshot' ]; then
+        sudo add-apt-repository -y ppa:ubuntu-elisp/ppa &&
+        sudo apt-get -qq update &&
+        sudo apt-get -qq -f install &&
+        sudo apt-get -qq install emacs-snapshot &&
+        sudo apt-get -qq install emacs-snapshot-el;
+    fi
+  - $EMACS --version
+script:
+  - $EMACS -Q -L "." --batch --eval "(progn (load-file \"tests/simple-mpc-tests.el\") (ert-run-tests-batch-and-exit))"
