@@ -126,3 +126,10 @@ of its interface (inspired by [[https://wiki.gnome.org/Apps/Rhythmbox][Rhythmbox
 particularly well documented.
 ** Todo
 - add a way to combine multiple search terms e.g. mpc search artist a album b
+=======
+# ** Things that still need to be done
+# *** DONE Deal with empty results in simple-mpc-query
+# *** DONE Turn simple-mpc-query and simple-mpc-current-playlist into minor modes
+# *** DONE Sort simple-mpc-query
+# *** TODO Faces
+# *** TODO Make more vars customizable
