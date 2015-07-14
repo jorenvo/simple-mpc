@@ -66,15 +66,15 @@
 
 (defun simple-mpc-toggle ()
   (interactive)
-  (call-mpc nil "toggle"))
+  (simple-mpc-call-mpc nil "toggle"))
 
 (defun simple-mpc-next ()
   (interactive)
-  (call-mpc nil "next"))
+  (simple-mpc-call-mpc nil "next"))
 
 (defun simple-mpc-prev ()
   (interactive)
-  (call-mpc nil "prev"))
+  (simple-mpc-call-mpc nil "prev"))
 
 (defun simple-mpc-seek-forward ()
   "Does a relative seek forward by `simple-mpc-seek-time-in-s' seconds."
@@ -90,11 +90,11 @@
   (let ((time-string (number-to-string time-in-seconds)))
     (if (> time-in-seconds 0)
 	(setq time-string (concat "+" time-string)))
-    (call-mpc nil "seek" time-string)))
+    (simple-mpc-call-mpc nil "seek" time-string)))
 
 (defun simple-mpc-clear-current-playlist ()
   (interactive)
-  (call-mpc nil "clear")
+  (simple-mpc-call-mpc nil "clear")
   (message "%s" "Cleared current playlist."))
 
 (defun simple-mpc-load-playlist (playlist-name)
@@ -106,7 +106,7 @@ in variable `simple-mpc-mpd-playlist-directory'."
 		     (mapcar 'file-name-sans-extension
 			     (directory-files simple-mpc-mpd-playlist-directory nil "[a-zA-Z]+")))))
   (message "%s %s" "Loading playlist" playlist-name)
-  (call-mpc nil "load" playlist-name))
+  (simple-mpc-call-mpc nil "load" playlist-name))
 
 ;;;###autoload
 (defun simple-mpc ()

@@ -55,7 +55,7 @@
     (with-current-buffer buf
       (read-only-mode -1)
       (erase-buffer)
-      (call-mpc buf "playlist")
+      (simple-mpc-call-mpc buf "playlist")
       (simple-mpc-goto-line (simple-mpc-get-current-playlist-position))
       (switch-to-buffer buf)
       (simple-mpc-mode)
@@ -65,7 +65,7 @@
 (defun simple-mpc-play-current-line ()
   "Plays the song on the current line."
   (interactive)
-  (call-mpc nil "play" (number-to-string (line-number-at-pos (point)))))
+  (simple-mpc-call-mpc nil "play" (number-to-string (line-number-at-pos (point)))))
 
 (defun simple-mpc-delete ()
   "Deletes the song on the current line from the playlist. When a
@@ -74,9 +74,9 @@ region is active, it deletes all the tracks in the region."
   (if (use-region-p)
       (let ((first-line-region (line-number-at-pos (region-beginning)))
 	    (last-line-region (1- (line-number-at-pos (region-end))))) ; usually point is on the next line so 1-
-	(call-mpc nil "del" (mapcar 'number-to-string (number-sequence first-line-region
+	(simple-mpc-call-mpc nil "del" (mapcar 'number-to-string (number-sequence first-line-region
 								       last-line-region))))
-    (call-mpc nil "del" (number-to-string (line-number-at-pos (point)))))
+    (simple-mpc-call-mpc nil "del" (number-to-string (line-number-at-pos (point)))))
   (simple-mpc-view-current-playlist))
 
 (provide 'simple-mpc-current-playlist)
