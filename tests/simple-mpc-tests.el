@@ -31,6 +31,39 @@
 (require 'simple-mpc-query)
 (require 'simple-mpc)
 
+(defvar simple-mpc-test-mpd-absolute-path "/tmp/mpd/"
+  "The test directory for our test mpd server.")
+
+(defun simple-mpc-test-find-project-root (project-name)
+  "Will return the absolute path to the PROJECT-NAME directory in
+the pwd."
+  (let ((match-index (string-match project-name default-directory)))
+    (substring default-directory 0 (+ match-index (length project-name)))))
+
+(defun simple-mpc-test-mpd-setup ()
+  "Setup a test mpd server."
+  (let* ((mpd-process (apply-partially 'start-process
+                                       "simple-mpc-test-mpd" "simple-mpc-test-mpd-buffer"
+                                       "mpd" "--no-daemon" "--verbose"))
+         (project-root-absolute-path (simple-mpc-test-find-project-root "simple-mpc"))
+         (project-env-absolute-path (concat project-root-absolute-path "/tests/env/")))
+    (make-directory simple-mpc-test-mpd-absolute-path)
+    (make-directory (concat simple-mpc-test-mpd-absolute-path "music/"))
+    (make-directory (concat simple-mpc-test-mpd-absolute-path "playlists/"))
+    (mapc (lambda (file)
+            (copy-file (concat project-env-absolute-path file)
+                       (concat simple-mpc-test-mpd-absolute-path file) t))
+          (directory-files project-env-absolute-path nil ".*\.ogg" t))
+    (funcall mpd-process (concat project-root-absolute-path "/tests/env/mpd.conf"))))
+
+
+(defun simple-mpc-test-mpd-teardown ()
+  "Kills the test mpd server."
+  (kill-process "simple-mpc-test-mpd-buffer")
+  (sleep-for 0.5) ;; kill-process is not synchronous
+  (kill-buffer "simple-mpc-test-mpd-buffer")
+  (delete-directory simple-mpc-test-mpd-absolute-path t))
+
 (defun simple-mpc-test-dead ()
   "Tests that all simple-mpc buffers are cleaned up."
   (should-not (cl-some (lambda (buffer-name) (get-buffer buffer-name))
