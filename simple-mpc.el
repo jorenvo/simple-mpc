@@ -90,7 +90,7 @@
   (let ((time-string (number-to-string time-in-seconds)))
     (if (> time-in-seconds 0)
 	(setq time-string (concat "+" time-string)))
-    (simple-mpc-call-mpc nil "seek" time-string)))
+    (simple-mpc-call-mpc nil (list "seek" time-string))))
 
 (defun simple-mpc-clear-current-playlist ()
   (interactive)
@@ -106,7 +106,7 @@ in variable `simple-mpc-mpd-playlist-directory'."
 		     (mapcar 'file-name-sans-extension
 			     (directory-files simple-mpc-mpd-playlist-directory nil "[a-zA-Z]+")))))
   (message "%s %s" "Loading playlist" playlist-name)
-  (simple-mpc-call-mpc nil "load" playlist-name))
+  (simple-mpc-call-mpc nil (list "load" playlist-name)))
 
 ;;;###autoload
 (defun simple-mpc ()

@@ -28,19 +28,22 @@
 
 (require 'simple-mpc-vars)
 
-(defun simple-mpc-partial-mpc (destination action)
-  (apply-partially 'call-process "mpc" nil destination nil action))
+(defvar simple-mpc-arguments ""
+  "Extra arguments that will be given to mpc. This can be used to
+eg. make mpc connect to a UNIX socket with --host.")
 
-(defun simple-mpc-call-mpc (destination action &optional mpc-args)
+(defun simple-mpc-call-mpc (destination mpc-args)
   "Calls mpc with `call-process'. DESTINATION will be passed to
-`call-process' and MPC-ARGS will be applied to it."
-  (if (listp mpc-args)
-      (apply (simple-mpc-partial-mpc destination action) mpc-args)
-    (funcall (simple-mpc-partial-mpc destination action) mpc-args)))
+`call-process' and MPC-ARGS will be passed to the mpc program."
+  (if (not (listp mpc-args))
+      (setq mpc-args (list mpc-args)))
+  (if (> (length simple-mpc-arguments) 0)
+      (setq mpc-args (append (split-string simple-mpc-arguments " ") mpc-args)))
+  (apply 'call-process "mpc" nil destination nil mpc-args))
 
 (defun simple-mpc-get-current-playlist-position ()
   (with-temp-buffer
-    (simple-mpc-call-mpc t "current" (list "-f" "%position%"))
+    (simple-mpc-call-mpc t '("current" "-f" "%position%"))
     (string-to-number (buffer-string))))
 
 (defun simple-mpc-get-amount-of-songs-in-playlist ()

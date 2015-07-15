@@ -63,7 +63,7 @@ is the actual query."
     (with-current-buffer buf
       (read-only-mode -1)
       (erase-buffer)
-      (simple-mpc-call-mpc t "search" (list search-type search-query))
+      (simple-mpc-call-mpc t (list "search" search-type search-query))
       (goto-char (point-max))
 
       ;; remove trailing newline (from mpc)
@@ -99,14 +99,14 @@ current playlist. When PLAY is non-nil, immediately play them."
 	    (setq beginning-first-line-region (line-beginning-position))
 	    (simple-mpc-goto-line last-line-region)
 	    (setq end-last-line-region (line-end-position)))
-	  (simple-mpc-call-mpc nil "add" (split-string (buffer-substring beginning-first-line-region
-							      end-last-line-region)
-					    "\n" t))
+	  (simple-mpc-call-mpc nil (cons "add" (split-string (buffer-substring beginning-first-line-region
+                                                                               end-last-line-region)
+                                                             "\n" t)))
 	  (deactivate-mark))
-      (simple-mpc-call-mpc nil "add" (buffer-substring-no-properties (line-beginning-position) (line-end-position)))
+      (simple-mpc-call-mpc nil (cons "add" (buffer-substring-no-properties (line-beginning-position) (line-end-position))))
       (forward-line))
     (if play
-	(simple-mpc-call-mpc nil "play" (number-to-string (1+ current-amount-in-playlist))))))
+	(simple-mpc-call-mpc nil (list "play" (number-to-string (1+ current-amount-in-playlist)))))))
 
 (defun simple-mpc-query-sort (&optional reverse)
   "Sorts all query results alphabetically."
