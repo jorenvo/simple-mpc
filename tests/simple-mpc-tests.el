@@ -52,16 +52,19 @@ the pwd."
     (make-directory (concat simple-mpc-test-mpd-absolute-path "playlists/"))
     (mapc (lambda (file)
             (copy-file (concat project-env-absolute-path file)
-                       (concat simple-mpc-test-mpd-absolute-path file) t))
+                       (concat simple-mpc-test-mpd-absolute-path "music/" file) t))
           (directory-files project-env-absolute-path nil ".*\.ogg" t))
-    (funcall mpd-process (concat project-root-absolute-path "/tests/env/mpd.conf"))))
-
+    (setq simple-mpc-arguments (concat "--host " simple-mpc-test-mpd-absolute-path "mpd_socket"))
+    (simple-mpc-call-mpc nil '("--wait" "update"))
+    (funcall mpd-process (concat project-root-absolute-path "/tests/env/mpd.conf"))
+    (sleep-for .5))) ;; todo why do we need this now?
 
 (defun simple-mpc-test-mpd-teardown ()
   "Kills the test mpd server."
-  (kill-process "simple-mpc-test-mpd-buffer")
-  (sleep-for 0.5) ;; kill-process is not synchronous
+  (kill-process "simple-mpc-test-mpd")
+  (sleep-for .5) ;; todo is kill-process not synchronous?
   (kill-buffer "simple-mpc-test-mpd-buffer")
+  (setq simple-mpc-arguments "")
   (delete-directory simple-mpc-test-mpd-absolute-path t))
 
 (defun simple-mpc-test-dead ()
@@ -98,6 +101,16 @@ directly quitting does not go to main screen."
     (simple-mpc-view-current-playlist)
     (simple-mpc-current-playlist-quit)
     (simple-mpc-test-dead)))
+
+(ert-deftest simple-mpc-test-query-show-all ()
+  "Tests that `simple-mpc-query' displays all songs in the
+database"
+  (simple-mpc-test-mpd-setup)
+  (simple-mpc-query "artist" "")
+  (switch-to-buffer simple-mpc-query-buffer-name) ;; todo why do we have to switch manually now?
+  (should (eq 3 (count-lines (point-min) (point-max))))
+  (simple-mpc-query-quit)
+  (simple-mpc-test-mpd-teardown))
 
 (provide 'simple-mpc-tests)
 ;;; simple-mpc-tests.el ends here
