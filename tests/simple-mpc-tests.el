@@ -31,7 +31,7 @@
 (require 'simple-mpc-query)
 (require 'simple-mpc)
 
-(defvar simple-mpc-test-mpd-absolute-path "/tmp/mpd/"
+(defvar simple-mpc-test-mpd-absolute-path "~/simple_mpc_test_mpd/"
   "The test directory for our test mpd server.")
 
 (defun simple-mpc-test-find-project-root (project-name)
@@ -42,6 +42,7 @@ the pwd."
 
 (defun simple-mpc-test-mpd-setup ()
   "Setup a test mpd server."
+  (setq simple-mpc-test-mpd-absolute-path (expand-file-name simple-mpc-test-mpd-absolute-path))
   (let* ((mpd-process (apply-partially 'start-process
                                        "simple-mpc-test-mpd" "simple-mpc-test-mpd-buffer"
                                        "mpd" "--no-daemon" "--verbose"))
@@ -55,8 +56,8 @@ the pwd."
                        (concat simple-mpc-test-mpd-absolute-path "music/" file) t))
           (directory-files project-env-absolute-path nil ".*\.ogg" t))
     (setq simple-mpc-arguments (concat "--host " simple-mpc-test-mpd-absolute-path "mpd_socket"))
-    (simple-mpc-call-mpc nil '("--wait" "update"))
     (funcall mpd-process (concat project-root-absolute-path "/tests/env/mpd.conf"))
+    (simple-mpc-call-mpc nil '("--wait" "update"))
     (sleep-for .5))) ;; todo why do we need this now?
 
 (defun simple-mpc-test-mpd-teardown ()
@@ -103,8 +104,7 @@ directly quitting does not go to main screen."
     (simple-mpc-test-dead)))
 
 (ert-deftest simple-mpc-test-query-show-all ()
-  "Tests that `simple-mpc-query' displays all songs in the
-database"
+  "Tests that `simple-mpc-query' displays all songs in db."
   (simple-mpc-test-mpd-setup)
   (simple-mpc-query "artist" "")
   (switch-to-buffer simple-mpc-query-buffer-name) ;; todo why do we have to switch manually now?
