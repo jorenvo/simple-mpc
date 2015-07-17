@@ -26,10 +26,9 @@
 
 ;;; Code:
 
+(require 'simple-mpc-mode)
 (require 'simple-mpc-vars)
 (require 'simple-mpc-utils)
-
-(declare-function simple-mpc-mode "./simple-mpc.el")
 
 (define-minor-mode simple-mpc-query-mode
   "Minor mode for the simple-mpc-query screen.

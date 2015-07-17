@@ -27,32 +27,10 @@
 
 ;;; Code:
 
+(require 'simple-mpc-mode)
 (require 'simple-mpc-current-playlist)
 (require 'simple-mpc-query)
 (require 'simple-mpc-vars)
-
-(defvar simple-mpc-mode-map
-  (let ((map (make-sparse-keymap)))
-    (define-key map "t" 'simple-mpc-toggle)
-    (define-key map "n" 'simple-mpc-next)
-    (define-key map "p" 'simple-mpc-prev)
-    (define-key map "f" 'simple-mpc-seek-forward)
-    (define-key map "b" 'simple-mpc-seek-backward)
-    (define-key map "c" 'simple-mpc-view-current-playlist)
-    (define-key map "C" 'simple-mpc-clear-current-playlist)
-    (define-key map "l" 'simple-mpc-load-playlist)
-    (define-key map "s" 'simple-mpc-query)
-    (define-key map "q" 'simple-mpc-quit)
-    map)
-  "Keymap for simple-mpc-mode.")
-
-(define-derived-mode simple-mpc-mode special-mode "simple-mpc"
-  "Major mode for the simple-mpc screen.
-\\{simple-mpc-mode-map}."
-  (use-local-map simple-mpc-mode-map)
-  (setq truncate-lines t
-        overwrite-mode 'overwrite-mode-binary)
-  (set (make-local-variable 'revert-buffer-function) #'simple-mpc))
 
 (defun simple-mpc-quit ()
   "Quits simple-mpc."
