@@ -44,7 +44,7 @@
     (define-key map "s" 'simple-mpc-query)
     (define-key map "q" 'simple-mpc-quit)
     map)
-  "Keymap for the *simple-mpc-main*.")
+  "Keymap for simple-mpc-mode.")
 
 (define-derived-mode simple-mpc-mode special-mode "simple-mpc"
   "Major mode for the simple-mpc screen.
