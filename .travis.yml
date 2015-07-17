@@ -18,6 +18,7 @@ install:
         sudo apt-get -qq install emacs-snapshot &&
         sudo apt-get -qq install emacs-snapshot-el;
     fi
+  - echo $TRAVIS_BUILD_DIR
   - sudo apt-get install mpd mpc
   - sudo service mpd stop
   - mkdir ~/.mpd/
