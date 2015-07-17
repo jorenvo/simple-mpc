@@ -44,9 +44,7 @@
 (define-derived-mode simple-mpc-mode special-mode "simple-mpc"
   "Major mode for the simple-mpc screen.
 \\{simple-mpc-mode-map}."
-  (use-local-map simple-mpc-mode-map)
-  (setq truncate-lines t
-        overwrite-mode 'overwrite-mode-binary)
+  (setq truncate-lines t overwrite-mode 'overwrite-mode-binary)
   (set (make-local-variable 'revert-buffer-function) #'simple-mpc))
 
 (provide 'simple-mpc-mode)
