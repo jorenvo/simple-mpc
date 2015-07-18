@@ -6,7 +6,7 @@ A GNU Emacs major mode that acts as a front end to [[http://www.musicpd.org/clie
 - [[http://www.musicpd.org/clients/mpc/][mpc]]
 ** Installation
 *** MELPA
-The easiest way to install would probably be through MELPA.
+The easiest way to install would probably be through [[http://melpa.org/][MELPA]].
 
 To do this add MELPA to your =package-archives= list if you have not
 yet done so:
