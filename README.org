@@ -1,4 +1,4 @@
-* simple-mpc
+* simple-mpc [[http://melpa.org/#/simple-mpc][file:http://melpa.org/packages/simple-mpc-badge.svg]]
 A GNU Emacs major mode that acts as a front end to [[http://www.musicpd.org/clients/mpc/][mpc]].
 ** Requirements
 - [[https://www.gnu.org/software/emacs/][GNU Emacs 24]]
