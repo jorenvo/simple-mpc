@@ -102,7 +102,7 @@ current playlist. When PLAY is non-nil, immediately play them."
                                                                                end-last-line-region)
                                                              "\n" t)))
 	  (deactivate-mark))
-      (simple-mpc-call-mpc nil (cons "add" (buffer-substring-no-properties (line-beginning-position) (line-end-position))))
+      (simple-mpc-call-mpc nil (list "add" (buffer-substring-no-properties (line-beginning-position) (line-end-position))))
       (forward-line))
     (if play
 	(simple-mpc-call-mpc nil (list "play" (number-to-string (1+ current-amount-in-playlist)))))))
