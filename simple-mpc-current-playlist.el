@@ -73,8 +73,8 @@ region is active, it deletes all the tracks in the region."
   (if (use-region-p)
       (let ((first-line-region (line-number-at-pos (region-beginning)))
 	    (last-line-region (1- (line-number-at-pos (region-end))))) ; usually point is on the next line so 1-
-	(simple-mpc-call-mpc nil (list "del" (mapcar 'number-to-string (number-sequence first-line-region
-                                                                                    last-line-region)))))
+	(simple-mpc-call-mpc nil (cons "del" (mapcar 'number-to-string (number-sequence first-line-region
+                                                                                        last-line-region)))))
     (simple-mpc-call-mpc nil (list "del" (number-to-string (line-number-at-pos (point))))))
   (simple-mpc-view-current-playlist))
 
