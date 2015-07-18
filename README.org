@@ -5,6 +5,22 @@ A GNU Emacs major mode that acts as a front end to [[http://www.musicpd.org/clie
 - [[http://www.musicpd.org/][Music Player Daemon]]
 - [[http://www.musicpd.org/clients/mpc/][mpc]]
 ** Installation
+*** MELPA
+The easiest way to install would probably be through MELPA.
+
+To do this add MELPA to your =package-archives= list if you have not
+yet done so:
+
+#+BEGIN_EXAMPLE
+(require 'package) ;; You might already have this line
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.org/packages/"))
+(package-initialize) ;; You might already have this line
+#+END_EXAMPLE
+
+Then install the package through either =list-packages= or by just
+running =M-x package-install simple-mpc=.
+*** Manual
 - Clone the repository
 - Add it to your emacs init:
 #+BEGIN_SRC lisp
