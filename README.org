@@ -11,12 +11,12 @@ The easiest way to install would probably be through [[http://melpa.org/][MELPA]
 To do this add MELPA to your =package-archives= list if you have not
 yet done so:
 
-#+BEGIN_EXAMPLE
+#+BEGIN_SRC lisp
 (require 'package) ;; You might already have this line
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/"))
 (package-initialize) ;; You might already have this line
-#+END_EXAMPLE
+#+END_SRC
 
 Then install the package through either =list-packages= or by just
 running =M-x package-install simple-mpc=.
