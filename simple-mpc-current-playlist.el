@@ -47,6 +47,11 @@
   (kill-buffer simple-mpc-current-playlist-buffer-name)
   (simple-mpc-switch-to-main-buffer))
 
+(defun simple-mpc-get-playlist-format ()
+  (if (> (length simple-mpc-playlist-format) 0)
+      (list "--format" simple-mpc-playlist-format)
+    '()))
+
 (defun simple-mpc-view-current-playlist (&optional ignore-auto noconfirm)
   "Views the current playlist."
   (interactive)
@@ -54,7 +59,7 @@
     (with-current-buffer buf
       (read-only-mode -1)
       (erase-buffer)
-      (simple-mpc-call-mpc buf "playlist")
+      (simple-mpc-call-mpc buf (append (simple-mpc-get-playlist-format) '("playlist")))
       (simple-mpc-goto-line (simple-mpc-get-current-playlist-position))
       (switch-to-buffer buf)
       (simple-mpc-mode)

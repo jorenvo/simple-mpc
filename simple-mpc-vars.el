@@ -37,6 +37,10 @@
   "simple-mpc - provides a simple interface to mpc"
   :group 'multimedia)
 
+(defcustom simple-mpc-playlist-format ""
+  "Format string that will be given to mpc through --format."
+  :group 'simple-mpc)
+
 (defcustom simple-mpc-mpd-playlist-directory "~/.mpd/playlists/"
   "The directory `simple-mpc-load-playlist' will look for
 playlists."
