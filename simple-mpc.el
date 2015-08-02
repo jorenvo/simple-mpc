@@ -87,8 +87,8 @@ in variable `simple-mpc-mpd-playlist-directory'."
   (simple-mpc-call-mpc nil (list "load" playlist-name)))
 
 ;;;###autoload
-(defun simple-mpc ()
-  "Starts simple-mpc."
+(defun simple-mpc (&optional ignore-auto noconfirm)
+  "Starts simple-mpc. IGNORE-AUTO and NOCONFIRM are passed by `revert-buffer'."
   (interactive)
   (let ((buf (get-buffer-create simple-mpc-main-buffer-name)))
     (with-current-buffer buf
