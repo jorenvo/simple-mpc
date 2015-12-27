@@ -3,6 +3,7 @@
 ;; Copyright (C) 2015
 
 ;; Author: Joren Van Onder <joren.vanonder@gmail.com>
+;; URL: https://github.com/jorenvo/simple-mpc
 ;; Maintainer: Joren Van Onder <joren.vanonder@gmail.com>
 ;; Keywords: multimedia, mpd, mpc
 ;; Version: 1.0
