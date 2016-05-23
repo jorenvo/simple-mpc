@@ -83,5 +83,10 @@ region is active, it deletes all the tracks in the region."
     (simple-mpc-call-mpc nil (list "del" (number-to-string (line-number-at-pos (point))))))
   (simple-mpc-view-current-playlist))
 
+(defun simple-mpc-maybe-refresh-playlist ()
+  "If the current buffer is a simple mpc playlist buffer, refresh its contents."
+  (when (string= (buffer-name) simple-mpc-current-playlist-buffer-name)
+    (simple-mpc-view-current-playlist)))
+
 (provide 'simple-mpc-current-playlist)
 ;;; simple-mpc-current-playlist.el ends here

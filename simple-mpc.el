@@ -73,7 +73,8 @@
 (defun simple-mpc-clear-current-playlist ()
   (interactive)
   (simple-mpc-call-mpc nil "clear")
-  (message "%s" "Cleared current playlist."))
+  (message "%s" "Cleared current playlist.")
+  (simple-mpc-maybe-refresh-playlist))
 
 (defun simple-mpc-load-playlist (playlist-name)
   "Load an MPD playlist. Provides completion for playlists stored
@@ -84,7 +85,8 @@ in variable `simple-mpc-mpd-playlist-directory'."
 		     (mapcar 'file-name-sans-extension
 			     (directory-files simple-mpc-mpd-playlist-directory nil "[a-zA-Z]+")))))
   (message "%s %s" "Loading playlist" playlist-name)
-  (simple-mpc-call-mpc nil (list "load" playlist-name)))
+  (simple-mpc-call-mpc nil (list "load" playlist-name))
+  (simple-mpc-maybe-refresh-playlist))
 
 ;;;###autoload
 (defun simple-mpc (&optional ignore-auto noconfirm)
