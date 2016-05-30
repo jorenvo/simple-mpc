@@ -53,6 +53,18 @@ with `simple-mpc-seek-forward' and `simple-mpc-seek-backward'."
   :group 'simple-mpc
   :type 'integer)
 
+(defcustom simple-mpc-playlist-auto-refresh nil
+  "Automatic refresh of the playlist buffer.
+
+If nil, automatic refresh is disabled.
+
+Integer value specifies the interval in seconds. The interval is
+not strict and the actual refresh may be delayed, if Emacs is
+busy. See `run-with-idle-timer'."
+  :group 'simple-mpc
+  :type '(choice (const :tag "Disabled" nil)
+                 (integer :tag "Number of seconds" 5)))
+
 (defface simple-mpc-main-name
   '((t :inherit font-lock-type-face :bold t))
   "For the title in the main view."

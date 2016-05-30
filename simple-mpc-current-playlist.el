@@ -30,6 +30,8 @@
 (require 'simple-mpc-vars)
 (require 'simple-mpc-utils)
 
+(defvar simple-mpc--playlist-refresh-timer nil)
+
 (define-minor-mode simple-mpc-current-playlist-mode
   "Minor mode for the simple-mpc-current-playlist screen.
 \\{simple-mpc-current-playlist-mode-map}."
@@ -44,6 +46,7 @@
 (defun simple-mpc-current-playlist-quit ()
   "Quits the current playlist mode and goes back to main."
   (interactive)
+  (simple-mpc-playlist-refresh-timer-stop)
   (kill-buffer simple-mpc-current-playlist-buffer-name)
   (simple-mpc-switch-to-main-buffer))
 
@@ -52,19 +55,30 @@
       (list "--format" simple-mpc-playlist-format)
     '()))
 
-(defun simple-mpc-view-current-playlist (&optional ignore-auto noconfirm)
-  "Views the current playlist."
+(defun simple-mpc-view-current-playlist (&optional ignore-auto noconfirm keep-point)
+  "Views the current playlist.
+
+If optional argument KEEP-POINT is t, try to keep point in its current
+position. Otherwise, move it to the current track in the playlist."
   (interactive)
   (let ((buf (get-buffer-create simple-mpc-current-playlist-buffer-name)))
     (with-current-buffer buf
-      (read-only-mode -1)
-      (erase-buffer)
-      (simple-mpc-call-mpc buf (append (simple-mpc-get-playlist-format) '("playlist")))
-      (simple-mpc-goto-line (simple-mpc-get-current-playlist-position))
-      (switch-to-buffer buf)
-      (simple-mpc-mode)
-      (simple-mpc-current-playlist-mode)
-      (hl-line-mode))))
+      (let ((original-line (line-number-at-pos))
+            (original-column (current-column)))
+        (read-only-mode -1)
+        (erase-buffer)
+        (simple-mpc-call-mpc buf (append (simple-mpc-get-playlist-format) '("playlist")))
+        (if keep-point
+            (progn
+              (simple-mpc-goto-line original-line)
+              (move-to-column original-column))
+          (simple-mpc-goto-line (simple-mpc-get-current-playlist-position)))
+        (switch-to-buffer buf)
+        (simple-mpc-mode)
+        (simple-mpc-current-playlist-mode)
+        (hl-line-mode)
+        (when simple-mpc-playlist-auto-refresh
+          (simple-mpc-playlist-refresh-timer-start))))))
 
 (defun simple-mpc-play-current-line ()
   "Plays the song on the current line."
@@ -83,10 +97,31 @@ region is active, it deletes all the tracks in the region."
     (simple-mpc-call-mpc nil (list "del" (number-to-string (line-number-at-pos (point))))))
   (simple-mpc-view-current-playlist))
 
-(defun simple-mpc-maybe-refresh-playlist ()
-  "If the current buffer is a simple mpc playlist buffer, refresh its contents."
+(defun simple-mpc-maybe-refresh-playlist (&optional keep-point)
+  "If the current buffer is a simple mpc playlist buffer, refresh its contents.
+
+If optional argument KEEP-POINT is t, try to keep point in its current
+position. Otherwise, move it to the current track in the playlist."
   (when (string= (buffer-name) simple-mpc-current-playlist-buffer-name)
-    (simple-mpc-view-current-playlist)))
+    (simple-mpc-view-current-playlist nil nil keep-point)))
+
+(defun simple-mpc-playlist-refresh-timer-start ()
+  "Start a timer that will refresh the playlist buffer every
+ `simple-mpc-playlist-auto-refresh' seconds.
+
+Do nothing if the timer is already running."
+  (unless simple-mpc--playlist-refresh-timer
+    (setq simple-mpc--playlist-refresh-timer (run-with-idle-timer
+                                              simple-mpc-playlist-auto-refresh
+                                              t
+                                              (lambda ()
+                                                (simple-mpc-maybe-refresh-playlist t))))))
+
+(defun simple-mpc-playlist-refresh-timer-stop ()
+  "Stop a timer that refreshes the playlist buffer."
+  (when simple-mpc--playlist-refresh-timer
+    (cancel-timer simple-mpc--playlist-refresh-timer)
+    (setq simple-mpc--playlist-refresh-timer nil)))
 
 (provide 'simple-mpc-current-playlist)
 ;;; simple-mpc-current-playlist.el ends here
