@@ -1,6 +1,6 @@
 ;;; simple-mpc-query.el --- part of simple-mpc
 ;;
-;; Copyright (C) 2015
+;; Copyright (C) 2015,2016 Joren Van Onder <joren.vanonder@gmail.com>
 
 ;; Author: Joren Van Onder <joren.vanonder@gmail.com>
 ;; Maintainer: Joren Van Onder <joren.vanonder@gmail.com>
