@@ -36,6 +36,7 @@
     (define-key map "b" 'simple-mpc-seek-backward)
     (define-key map "c" 'simple-mpc-view-current-playlist)  ;; autoload this
     (define-key map "C" 'simple-mpc-clear-current-playlist)
+    (define-key map "S" 'simple-mpc-shuffle-current-playlist)
     (define-key map "l" 'simple-mpc-load-playlist)
     (define-key map "s" 'simple-mpc-query) ;; autoload this
     (define-key map "q" 'simple-mpc-quit)

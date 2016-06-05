@@ -56,20 +56,21 @@ who does not like the interface can use =simple-mpc-query-mode= and
 Bindings can be viewed with =describe-mode= (=C-h m=) but are listed
 below for completeness:
 **** simple-mpc-mode
-|-----+-----------------------------------|
-| key | function                          |
-|-----+-----------------------------------|
-| =t= | simple-mpc-toggle                 |
-| =n= | simple-mpc-next                   |
-| =p= | simple-mpc-prev                   |
-| =f= | simple-mpc-seek-forward           |
-| =b= | simple-mpc-seek-backward          |
-| =c= | simple-mpc-view-current-playlist  |
-| =C= | simple-mpc-clear-current-playlist |
-| =l= | simple-mpc-load-playlist          |
-| =s= | simple-mpc-query                  |
-| =q= | simple-mpc-quit                   |
-|-----+-----------------------------------|
+|-----+-------------------------------------|
+| key | function                            |
+|-----+-------------------------------------|
+| =t= | simple-mpc-toggle                   |
+| =n= | simple-mpc-next                     |
+| =p= | simple-mpc-prev                     |
+| =f= | simple-mpc-seek-forward             |
+| =b= | simple-mpc-seek-backward            |
+| =c= | simple-mpc-view-current-playlist    |
+| =C= | simple-mpc-clear-current-playlist   |
+| =S= | simple-mpc-shuffle-current-playlist |
+| =l= | simple-mpc-load-playlist            |
+| =s= | simple-mpc-query                    |
+| =q= | simple-mpc-quit                     |
+|-----+-------------------------------------|
 **** simple-mpc-query-mode
 |--------------+-------------------------------|
 | key          | function                      |

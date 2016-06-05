@@ -76,6 +76,12 @@
   (message "%s" "Cleared current playlist.")
   (simple-mpc-maybe-refresh-playlist))
 
+(defun simple-mpc-shuffle-current-playlist ()
+  (interactive)
+  (simple-mpc-call-mpc nil "shuffle")
+  (message "%s" "Shuffled current playlist.")
+  (simple-mpc-maybe-refresh-playlist))
+
 (defun simple-mpc-load-playlist (playlist-name)
   "Load an MPD playlist. Provides completion for playlists stored
 in variable `simple-mpc-mpd-playlist-directory'."
@@ -107,6 +113,7 @@ in variable `simple-mpc-mpd-playlist-directory'."
 	      (propertize "\n   * playlist\n" 'face 'simple-mpc-main-headers)
 	      "      * view [c]urrent playlist\n"
 	      "      * [C]lear current playlist\n"
+	      "      * [S]huffle playlist\n"
 	      "      * [l]oad playlist\n"
 	      "      * [s]earch database\n"
 	      (propertize "\n   * misc\n" 'face 'simple-mpc-main-headers)
