@@ -32,7 +32,10 @@ running =M-x package-install simple-mpc=.
 *** Quickstart
 Start by executing =M-x simple-mpc=. The rest of the keybindings now
 appear in a buffer. Configuration can be done with =M-x
-customize-group <RET> simple-mpc=.
+customize-group <RET> simple-mpc=. Viewing the current playlist and
+querying the database is done with =c= and =s= respectively. Most
+commands (like =simple-mpc-query-add= and =simple-mpc-delete=) respect
+the region.
 *** Structure
 Simple-mpc consists of three 'views', two of which have their own
 minor mode that implements specific extra functionality:
