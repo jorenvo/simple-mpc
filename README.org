@@ -46,10 +46,44 @@ minor mode that implements specific extra functionality:
 |------------------+-----------------+----------------------------------|
 
 simple-mpc-mode is always active and contains the most common
-bindings, which can be viewed with =C-h m=. Additional functionality
-is added with minor modes. Someone who does not like the interface can
-use =simple-mpc-query-mode= and =simple-mpc-current-playlist-mode=
-directly.
+bindings. Additional functionality is added with minor modes. Someone
+who does not like the interface can use =simple-mpc-query-mode= and
+=simple-mpc-current-playlist-mode= directly.
+*** Bindings
+Bindings can be viewed with =describe-mode= (=C-h m=) but are listed
+below for completeness:
+**** simple-mpc-mode
+|-----+-----------------------------------|
+| key | function                          |
+|-----+-----------------------------------|
+| =t= | simple-mpc-toggle                 |
+| =n= | simple-mpc-next                   |
+| =p= | simple-mpc-prev                   |
+| =f= | simple-mpc-seek-forward           |
+| =b= | simple-mpc-seek-backward          |
+| =c= | simple-mpc-view-current-playlist  |
+| =C= | simple-mpc-clear-current-playlist |
+| =l= | simple-mpc-load-playlist          |
+| =s= | simple-mpc-query                  |
+| =q= | simple-mpc-quit                   |
+|-----+-----------------------------------|
+**** simple-mpc-query-mode
+|--------------+-------------------------------|
+| key          | function                      |
+|--------------+-------------------------------|
+| =q=          | simple-mpc-query-quit         |
+| =S=          | simple-mpc-query-sort         |
+| =<return>=   | simple-mpc-query-add          |
+| =<S-return>= | simple-mpc-query-add-and-play |
+|--------------+-------------------------------|
+**** simple-mpc-current-playlist-mode
+|------------+----------------------------------|
+| key        | function                         |
+|------------+----------------------------------|
+| =d=        | simple-mpc-delete                |
+| =q=        | simple-mpc-current-playlist-quit |
+| =<return>= | simple-mpc-play-current-line     |
+|------------+----------------------------------|
 ** History
 This mode was inspired by [[https://github.com/pft/mingus][mingus]] written by Niels Giesen and parts of
 the interface were inspired by [[http://www.djcbsoftware.nl/code/mu/mu4e.html][mu4e]] written by Dirk-Jan C. Binnema. I
