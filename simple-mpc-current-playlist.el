@@ -65,14 +65,18 @@ position. Otherwise, move it to the current track in the playlist."
   (let ((buf (get-buffer-create simple-mpc-current-playlist-buffer-name)))
     (with-current-buffer buf
       (let ((original-line (line-number-at-pos))
-            (original-column (current-column)))
+            (original-column (current-column))
+            (window-start (window-start))
+            (window-hscroll (window-hscroll)))
         (read-only-mode -1)
         (erase-buffer)
         (simple-mpc-call-mpc buf (append (simple-mpc-get-playlist-format) '("playlist")))
         (if keep-point
             (progn
               (simple-mpc-goto-line original-line)
-              (move-to-column original-column))
+              (move-to-column original-column)
+              (set-window-start nil window-start t)
+              (set-window-hscroll nil window-hscroll))
           (simple-mpc-goto-line (simple-mpc-get-current-playlist-position)))
         (switch-to-buffer buf)
         (simple-mpc-mode)
