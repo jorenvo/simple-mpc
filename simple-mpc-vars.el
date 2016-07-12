@@ -42,12 +42,6 @@
   "Format string that will be given to mpc through --format."
   :group 'simple-mpc)
 
-(defcustom simple-mpc-mpd-playlist-directory "~/.mpd/playlists/"
-  "The directory `simple-mpc-load-playlist' will look for
-playlists."
-  :group 'simple-mpc
-  :type 'directory)
-
 (defcustom simple-mpc-seek-time-in-s 5
   "The time in seconds that will be used to do relative seeking
 with `simple-mpc-seek-forward' and `simple-mpc-seek-backward'."

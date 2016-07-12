@@ -84,13 +84,14 @@
   (simple-mpc-maybe-refresh-playlist))
 
 (defun simple-mpc-load-playlist (playlist-name)
-  "Load an MPD playlist. Provides completion for playlists stored
-in variable `simple-mpc-mpd-playlist-directory'."
+  "Load an MPD playlist. Provides completion for playlists
+through the lsplaylists command."
   (interactive
    (list
-    (completing-read "Playlist: "
-		     (mapcar 'file-name-sans-extension
-			     (directory-files simple-mpc-mpd-playlist-directory nil "[a-zA-Z]+")))))
+    (completing-read "Playlist: " (split-string (with-temp-buffer
+                                                  (simple-mpc-call-mpc t "lsplaylists")
+                                                  (buffer-string))
+                                                "\n" t))))
   (message "%s %s" "Loading playlist" playlist-name)
   (simple-mpc-call-mpc nil (list "load" playlist-name))
   (simple-mpc-maybe-refresh-playlist))
