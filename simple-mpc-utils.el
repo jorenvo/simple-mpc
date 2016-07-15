@@ -41,6 +41,15 @@ eg. make mpc connect to a UNIX socket with --host.")
       (setq mpc-args (append (split-string simple-mpc-arguments " ") mpc-args)))
   (apply 'call-process "mpc" nil destination nil mpc-args))
 
+(defun simple-mpc-call-mpc-strings (mpc-args)
+  "Wrapper around `simple-mpc-call-mpc'. Returns the output from
+it as a list of strings created by splitting the output on
+newlines."
+  (split-string (with-temp-buffer
+                  (simple-mpc-call-mpc t mpc-args)
+                  (buffer-string))
+                "\n" t))
+
 (defun simple-mpc-get-current-playlist-position ()
   (with-temp-buffer
     (simple-mpc-call-mpc t '("current" "-f" "%position%"))

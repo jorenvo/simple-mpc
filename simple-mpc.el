@@ -88,10 +88,7 @@
 through the lsplaylists command."
   (interactive
    (list
-    (completing-read "Playlist: " (split-string (with-temp-buffer
-                                                  (simple-mpc-call-mpc t "lsplaylists")
-                                                  (buffer-string))
-                                                "\n" t))))
+    (completing-read "Playlist: " (simple-mpc-call-mpc-strings "lsplaylists"))))
   (message "%s %s" "Loading playlist" playlist-name)
   (simple-mpc-call-mpc nil (list "load" playlist-name))
   (simple-mpc-maybe-refresh-playlist))
