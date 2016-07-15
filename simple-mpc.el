@@ -7,6 +7,7 @@
 ;; Maintainer: Joren Van Onder <joren.vanonder@gmail.com>
 ;; Keywords: multimedia, mpd, mpc
 ;; Version: 1.0
+;; Package-Requires: ((s "1.10.0"))
 
 ;; This file is not part of GNU Emacs.
 ;;
@@ -27,6 +28,8 @@
 ;; See README.org
 
 ;;; Code:
+
+(require 's)
 
 (require 'simple-mpc-mode)
 (require 'simple-mpc-current-playlist)

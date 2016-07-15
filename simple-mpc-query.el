@@ -30,6 +30,10 @@
 (require 'simple-mpc-vars)
 (require 'simple-mpc-utils)
 
+(defvar simple-mpc-query-current-result-alist nil
+  "An association list containing a (`simple-mpc-playlist-format'
+. %file%) pair for every result in the latest query.")
+
 (define-minor-mode simple-mpc-query-mode
   "Minor mode for the simple-mpc-query screen.
 \\{simple-mpc-query-mode-map}."
@@ -48,6 +52,23 @@
   (kill-buffer simple-mpc-query-buffer-name)
   (simple-mpc-switch-to-main-buffer))
 
+(defun simple-mpc-query-get-%file%-for-result (result)
+  (cdr (assoc result simple-mpc-query-current-result-alist)))
+
+(defun simple-mpc-query-build-result-alist (search-type search-query)
+  "Builds `simple-mpc-query-current-result-alist' according to
+SEARCH-TYPE and SEARCH-QUERY."
+  (setq simple-mpc-query-current-result-alist
+        (let* ((file-metadata-delimiter "(simple-mpc)")
+               (query-format (concat file-metadata-delimiter "%file%" file-metadata-delimiter simple-mpc-playlist-format)))
+          (mapcar (lambda (mpc-result)
+                    (let* ((matches (s-match (format "^%s\\(.*\\)%s\\(.*\\)" file-metadata-delimiter file-metadata-delimiter) mpc-result))
+                           (full-match (nth 0 matches))
+                           (file (nth 1 matches))
+                           (user-specified-format (nth 2 matches)))
+                      (cons user-specified-format file)))
+                  (simple-mpc-call-mpc-strings (list "--format" query-format "search" search-type search-query))))))
+
 (defun simple-mpc-query (search-type search-query)
   "Perform an mpc search. SEARCH-TYPE is a tag type, SEARCH-QUERY
 is the actual query."
@@ -58,17 +79,13 @@ is the actual query."
 				       "performer" "comment" "disc" "filename"
 				       "any") nil t)
     (read-string "Query: ")))
+  (simple-mpc-query-build-result-alist search-type search-query)
   (let ((buf (get-buffer-create simple-mpc-query-buffer-name)))
     (with-current-buffer buf
       (read-only-mode -1)
       (erase-buffer)
-      (simple-mpc-call-mpc t (list "search" search-type search-query))
+      (insert (mapconcat (lambda (result) (car result)) simple-mpc-query-current-result-alist "\n"))
       (goto-char (point-max))
-
-      ;; remove trailing newline (from mpc)
-      ;; delete-char errors when it can't delete, ignore that
-      (ignore-errors (delete-char -1))
-
       (goto-char (point-min))
       (simple-mpc-mode)
       (simple-mpc-query-mode)
@@ -98,11 +115,14 @@ current playlist. When PLAY is non-nil, immediately play them."
 	    (setq beginning-first-line-region (line-beginning-position))
 	    (simple-mpc-goto-line last-line-region)
 	    (setq end-last-line-region (line-end-position)))
-	  (simple-mpc-call-mpc nil (cons "add" (split-string (buffer-substring beginning-first-line-region
-                                                                               end-last-line-region)
-                                                             "\n" t)))
-	  (deactivate-mark))
-      (simple-mpc-call-mpc nil (list "add" (buffer-substring-no-properties (line-beginning-position) (line-end-position))))
+	  (simple-mpc-call-mpc nil (cons "add" (mapcar (lambda (result)
+                                                         (simple-mpc-query-get-%file%-for-result result))
+                                                       (split-string (buffer-substring-no-properties beginning-first-line-region
+                                                                                                     end-last-line-region)
+                                                                     "\n" t))))
+          (deactivate-mark))
+      (simple-mpc-call-mpc nil (list "add" (simple-mpc-query-get-%file%-for-result
+                                            (buffer-substring-no-properties (line-beginning-position) (line-end-position)))))
       (forward-line))
     (if play
 	(simple-mpc-call-mpc nil (list "play" (number-to-string (1+ current-amount-in-playlist)))))))
