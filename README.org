@@ -3,7 +3,7 @@ A GNU Emacs major mode that acts as a front end to [[http://www.musicpd.org/clie
 [[./screenshot.png]]
 ** Requirements
 - [[https://www.gnu.org/software/emacs/][GNU Emacs 24]]
-- [[http://www.musicpd.org/][Music Player Daemon]]
+- [[http://www.musicpd.org/][Music Player Daemon]] or [[https://www.mopidy.com/][Mopidy]]
 - [[http://www.musicpd.org/clients/mpc/][mpc]]
 ** Installation
 *** MELPA
@@ -88,6 +88,12 @@ below for completeness:
 | =q=        | simple-mpc-current-playlist-quit |
 | =<return>= | simple-mpc-play-current-line     |
 |------------+----------------------------------|
+** Configuration
+Configuring simple-mpc can be done entirely through the =simple-mpc=
+customization group (=M-x customize-group simple-mpc<RET>=). When
+using Mopidy as a server setting =simple-mpc-playlist-format= is
+recommended, the default output from =mpc search= won't be very
+descriptive otherwise.
 ** History
 This mode was inspired by [[https://github.com/pft/mingus][mingus]] written by Niels Giesen and parts of
 the interface were inspired by [[http://www.djcbsoftware.nl/code/mu/mu4e.html][mu4e]] written by Dirk-Jan C. Binnema. I
