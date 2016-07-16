@@ -108,3 +108,5 @@ GNU Emacs also contains [[http://git.savannah.gnu.org/cgit/emacs.git/tree/lisp/m
 interesting but wasn't really what I was looking for, partly because
 of its interface (inspired by [[https://wiki.gnome.org/Apps/Rhythmbox][Rhythmbox]]), and partly because it's not
 particularly well documented.
+** Todo
+- add a way to combine multiple search terms e.g. mpc search artist a album b
