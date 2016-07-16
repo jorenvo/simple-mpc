@@ -60,14 +60,17 @@
 SEARCH-TYPE and SEARCH-QUERY."
   (setq simple-mpc-query-current-result-alist
         (let* ((file-metadata-delimiter "(simple-mpc)")
-               (query-format (concat file-metadata-delimiter "%file%" file-metadata-delimiter simple-mpc-playlist-format)))
+               (query-format (concat simple-mpc-playlist-format file-metadata-delimiter "%file%" file-metadata-delimiter )))
           (mapcar (lambda (mpc-result)
-                    (let* ((matches (s-match (format "^%s\\(.*\\)%s\\(.*\\)" file-metadata-delimiter file-metadata-delimiter) mpc-result))
+                    (let* ((matches (s-match (format "^\\(.*\\)%s\\(.*\\)%s" file-metadata-delimiter file-metadata-delimiter) mpc-result))
                            (full-match (nth 0 matches))
-                           (file (nth 1 matches))
-                           (user-specified-format (nth 2 matches)))
+                           (user-specified-format (nth 1 matches))
+                           (file (nth 2 matches)))
                       (cons user-specified-format file)))
-                  (simple-mpc-call-mpc-strings (list "--format" query-format "search" search-type search-query))))))
+                  (split-string
+                   (simple-mpc-format-as-table (simple-mpc-call-mpc-string
+                                                (list "--format" query-format "search" search-type search-query)))
+                   "\n" t)))))
 
 (defun simple-mpc-query (search-type search-query)
   "Perform an mpc search. SEARCH-TYPE is a tag type, SEARCH-QUERY

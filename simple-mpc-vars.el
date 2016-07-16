@@ -60,6 +60,19 @@ busy. See `run-with-idle-timer'."
   :type '(choice (const :tag "Disabled" nil)
                  (integer :tag "Number of seconds" 5)))
 
+(defcustom simple-mpc-table-separator nil
+  "When non-nil this will be used to format the playlist as a table.
+
+This value is given directly to the -s flag of column(1). When
+using this option it is important that
+`simple-mpc-playlist-format' contains a format that uses this
+separator.
+
+\\t should be a good choice for this. You can insert literal tab
+characters in GNU Emacs by pressing C-q <TAB>."
+  :group 'simple-mpc
+  :type 'string)
+
 (defface simple-mpc-main-name
   '((t :inherit font-lock-type-face :bold t))
   "For the title in the main view."

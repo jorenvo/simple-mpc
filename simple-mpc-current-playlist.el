@@ -70,7 +70,9 @@ position. Otherwise, move it to the current track in the playlist."
             (window-hscroll (window-hscroll)))
         (read-only-mode -1)
         (erase-buffer)
-        (simple-mpc-call-mpc buf (append (simple-mpc-get-playlist-format) '("playlist")))
+        (insert
+         (simple-mpc-format-as-table (simple-mpc-call-mpc-string
+                                      (append (simple-mpc-get-playlist-format) '("playlist")))))
         (if keep-point
             (progn
               (simple-mpc-goto-line original-line)

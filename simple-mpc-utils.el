@@ -45,10 +45,14 @@ eg. make mpc connect to a UNIX socket with --host.")
   "Wrapper around `simple-mpc-call-mpc'. Returns the output from
 it as a list of strings created by splitting the output on
 newlines."
-  (split-string (with-temp-buffer
-                  (simple-mpc-call-mpc t mpc-args)
-                  (buffer-string))
-                "\n" t))
+  (split-string (simple-mpc-call-mpc-string mpc-args) "\n" t))
+
+(defun simple-mpc-call-mpc-string (mpc-args)
+  "Wrapper around `simple-mpc-call-mpc'. Returns the output from
+it as a string."
+  (with-temp-buffer
+    (simple-mpc-call-mpc t mpc-args)
+    (buffer-string)))
 
 (defun simple-mpc-get-current-playlist-position ()
   (with-temp-buffer
@@ -70,6 +74,19 @@ a Lisp program."
   "Switches to the main mpc buffer."
   (if (get-buffer simple-mpc-main-buffer-name)
       (switch-to-buffer simple-mpc-main-buffer-name)))
+
+(defun simple-mpc-format-as-table (result)
+  (if simple-mpc-table-separator
+      (with-temp-buffer
+        (insert result)
+        ;; The -n flag given to the column command is a Debian
+        ;; GNU/Linux extension meaning that this will probably cause
+        ;; issues on other systems. We should find a replacement. I
+        ;; think util-linux 2.23 made column behave as if -n is active
+        ;; by default.
+        (shell-command-on-region (point-min) (point-max) (format "column -tns '%s'" simple-mpc-table-separator) nil t)
+        (buffer-string))
+    result))
 
 (provide 'simple-mpc-utils)
 ;;; simple-mpc-utils.el ends here
