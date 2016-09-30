@@ -51,11 +51,6 @@
   (kill-buffer simple-mpc-current-playlist-buffer-name)
   (simple-mpc-switch-to-main-buffer))
 
-(defun simple-mpc-get-playlist-format ()
-  (if (> (length simple-mpc-playlist-format) 0)
-      (list "--format" simple-mpc-playlist-format)
-    '()))
-
 (defun simple-mpc-view-current-playlist (&optional ignore-auto noconfirm keep-point)
   "Views the current playlist.
 
@@ -72,7 +67,7 @@ position. Otherwise, move it to the current track in the playlist."
         (erase-buffer)
         (insert
          (simple-mpc-format-as-table (simple-mpc-call-mpc-string
-                                      (append (simple-mpc-get-playlist-format) '("playlist")))))
+                                      (append (list "--format" (simple-mpc-get-playlist-format)) '("playlist")))))
         (if keep-point
             (progn
               (simple-mpc-goto-line original-line)

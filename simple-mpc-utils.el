@@ -88,5 +88,10 @@ a Lisp program."
         (buffer-string))
     result))
 
+(defun simple-mpc-get-playlist-format ()
+  (if (string= simple-mpc-playlist-format "")
+      "%file%"
+    simple-mpc-playlist-format))
+
 (provide 'simple-mpc-utils)
 ;;; simple-mpc-utils.el ends here
