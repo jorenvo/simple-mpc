@@ -60,7 +60,7 @@
 SEARCH-TYPE and SEARCH-QUERY."
   (setq simple-mpc-query-current-result-alist
         (let* ((file-metadata-delimiter "(simple-mpc)")
-               (query-format (concat simple-mpc-playlist-format file-metadata-delimiter "%file%" file-metadata-delimiter )))
+               (query-format (concat simple-mpc-playlist-format file-metadata-delimiter "%file%" file-metadata-delimiter)))
           (mapcar (lambda (mpc-result)
                     (let* ((matches (s-match (format "^\\(.*\\)%s\\(.*\\)%s" file-metadata-delimiter file-metadata-delimiter) mpc-result))
                            (full-match (nth 0 matches))
