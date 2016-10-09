@@ -19,7 +19,7 @@ yet done so:
 (package-initialize) ;; You might already have this line
 #+END_SRC
 
-Then install the package through either =list-packages= or by just
+Then install the package through either =M-x list-packages= or by just
 running =M-x package-install simple-mpc=.
 *** Manual
 - Clone the repository
