@@ -90,10 +90,21 @@ below for completeness:
 |------------+----------------------------------|
 ** Configuration
 Configuring simple-mpc can be done entirely through the =simple-mpc=
-customization group (=M-x customize-group simple-mpc<RET>=). When
-using Mopidy as a server setting =simple-mpc-playlist-format= is
+customization group (=M-x customize-group simple-mpc<RET>=).
+
+When using Mopidy as a server setting =simple-mpc-playlist-format= is
 recommended, the default output from =mpc search= won't be very
-descriptive otherwise.
+descriptive otherwise. The following configuration works well mopidy
+(note that the whitespace between the metadata delimiters and the
+separator itself are TAB characters (=C-q <TAB>=), *not spaces*):
+
+#+BEGIN_SRC lisp
+(custom-set-variables
+...
+ '(simple-mpc-playlist-format "%artist%	%album%	%title%	%file%")
+ '(simple-mpc-table-separator "	")
+...)
+#+END_SRC
 ** History
 This mode was inspired by [[https://github.com/pft/mingus][mingus]] written by Niels Giesen and parts of
 the interface were inspired by [[http://www.djcbsoftware.nl/code/mu/mu4e.html][mu4e]] written by Dirk-Jan C. Binnema. I
