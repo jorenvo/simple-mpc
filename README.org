@@ -7,7 +7,7 @@ A GNU Emacs major mode that acts as a front end to [[http://www.musicpd.org/clie
 - [[http://www.musicpd.org/clients/mpc/][mpc]]
 ** Installation
 *** MELPA
-The easiest way to install would probably be through [[http://melpa.org/][MELPA]].
+The easiest way to install is through [[http://melpa.org/][MELPA]].
 
 To do this add MELPA to your =package-archives= list if you have not
 yet done so:
@@ -30,12 +30,11 @@ running =M-x package-install simple-mpc=.
 #+END_SRC
 ** Usage
 *** Quickstart
-Start by executing =M-x simple-mpc=. The rest of the keybindings now
-appear in a buffer. Configuration can be done with =M-x
-customize-group <RET> simple-mpc=. Viewing the current playlist and
-querying the database is done with =c= and =s= respectively. Most
-commands (like =simple-mpc-query-add= and =simple-mpc-delete=) respect
-the region.
+Start with =M-x simple-mpc=. The rest of the keybindings now appear in
+a buffer. Configuration can be done with =M-x customize-group <RET>
+simple-mpc=. Viewing the current playlist and querying the database is
+done with =c= and =s= respectively. Most commands (like
+=simple-mpc-query-add= and =simple-mpc-delete=) respect the region.
 *** Structure
 Simple-mpc consists of three 'views', two of which have their own
 minor mode that implements specific extra functionality:
