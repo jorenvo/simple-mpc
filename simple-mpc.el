@@ -41,11 +41,11 @@
   "Quits simple-mpc."
   (interactive)
   (mapc (lambda (buf)
-	  (if (buffer-live-p (get-buffer buf))
-	      (kill-buffer buf)))
-	(list simple-mpc-main-buffer-name
-	      simple-mpc-current-playlist-buffer-name
-	      simple-mpc-query-buffer-name)))
+          (if (buffer-live-p (get-buffer buf))
+              (kill-buffer buf)))
+        (list simple-mpc-main-buffer-name
+              simple-mpc-current-playlist-buffer-name
+              simple-mpc-query-buffer-name)))
 
 (defun simple-mpc-toggle ()
   (interactive)
@@ -119,23 +119,23 @@ through the lsplaylists command."
       (read-only-mode -1)
       (erase-buffer)
       (insert (propertize "* simple-mpc *\n\n"
-			  'face 'simple-mpc-main-name)
-	      (propertize "   * controls\n" 'face 'simple-mpc-main-headers)
-	      "      * [t]oggle\n"
-	      "      * [n]ext track\n"
-	      "      * [p]revious track\n"
-	      "      * seek [f]orward\n"
-	      "      * seek [b]ackward\n"
+                          'face 'simple-mpc-main-name)
+              (propertize "   * controls\n" 'face 'simple-mpc-main-headers)
+              "      * [t]oggle\n"
+              "      * [n]ext track\n"
+              "      * [p]revious track\n"
+              "      * seek [f]orward\n"
+              "      * seek [b]ackward\n"
               "      * increase [V]olume\n"
               "      * decrease [v]olume\n"
-	      (propertize "\n   * playlist\n" 'face 'simple-mpc-main-headers)
-	      "      * view [c]urrent playlist\n"
-	      "      * [C]lear current playlist\n"
-	      "      * [S]huffle playlist\n"
-	      "      * [l]oad playlist\n"
-	      "      * [s]earch database\n"
-	      (propertize "\n   * misc\n" 'face 'simple-mpc-main-headers)
-	      "      * [q]uit")
+              (propertize "\n   * playlist\n" 'face 'simple-mpc-main-headers)
+              "      * view [c]urrent playlist\n"
+              "      * [C]lear current playlist\n"
+              "      * [S]huffle playlist\n"
+              "      * [l]oad playlist\n"
+              "      * [s]earch database\n"
+              (propertize "\n   * misc\n" 'face 'simple-mpc-main-headers)
+              "      * [q]uit")
       (simple-mpc-mode) ; start major mode
       (switch-to-buffer buf))))
 
