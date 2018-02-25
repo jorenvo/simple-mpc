@@ -21,7 +21,8 @@ install:
   - echo $TRAVIS_BUILD_DIR
   - sudo apt-get install mpd mpc
   - sudo service mpd stop
-  - mkdir ~/.mpd/
+  - mkdir ~/simple_mpc_test_mpd
+  - mkdir ~/.mpd
   - touch ~/.mpd/database
   - mkdir ~/music
   - cp tests/env/*.ogg ~/music
