@@ -78,13 +78,16 @@ a Lisp program."
 (defun simple-mpc-format-as-table (result)
   (if simple-mpc-table-separator
       (with-temp-buffer
-        (insert result)
-        ;; The -n flag given to the column command is a Debian
-        ;; GNU/Linux extension meaning that this will probably cause
-        ;; issues on other systems. We should find a replacement. I
-        ;; think util-linux 2.23 made column behave as if -n is active
-        ;; by default.
-        (shell-command-on-region (point-min) (point-max) (format "column -tns '%s'" simple-mpc-table-separator) nil t)
+        (insert
+         ;; Old versions of column (included in util-linux
+         ;; <2.23) merge multiple adjacent delimiters into a
+         ;; single delimiter. Make sure this doesn't occur by
+         ;; inserting a "/" in those empty columns.
+         (replace-regexp-in-string
+          (concat simple-mpc-table-separator simple-mpc-table-separator)
+          (concat simple-mpc-table-separator "/" simple-mpc-table-separator)
+          result))
+        (shell-command-on-region (point-min) (point-max) (format "column -ts '%s'" simple-mpc-table-separator) nil t)
         (buffer-string))
     result))
 
