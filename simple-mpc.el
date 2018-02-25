@@ -70,10 +70,22 @@
   (simple-mpc-seek-internal (- simple-mpc-seek-time-in-s)))
 
 (defun simple-mpc-seek-internal (time-in-seconds)
-  (let ((time-string (number-to-string time-in-seconds)))
-    (if (> time-in-seconds 0)
-	(setq time-string (concat "+" time-string)))
+  (let ((time-string (simple-mpc-convert-number-to-relative-string time-in-seconds)))
     (simple-mpc-call-mpc nil (list "seek" time-string))))
+
+(defun simple-mpc-increase-volume ()
+  "Increases volume by `simple-mpc-volume-step-size'."
+  (interactive)
+  (simple-mpc-modify-volume-internal simple-mpc-volume-step-size))
+
+(defun simple-mpc-decrease-volume ()
+  "Decreases volume by `simple-mpc-volume-step-size'."
+  (interactive)
+  (simple-mpc-modify-volume-internal (- simple-mpc-volume-step-size)))
+
+(defun simple-mpc-modify-volume-internal (volume-change)
+  (let ((volume-change-string (simple-mpc-convert-number-to-relative-string volume-change)))
+    (simple-mpc-call-mpc nil (list "volume" volume-change-string))))
 
 (defun simple-mpc-clear-current-playlist ()
   (interactive)
@@ -113,6 +125,8 @@ through the lsplaylists command."
 	      "      * [p]revious track\n"
 	      "      * seek [f]orward\n"
 	      "      * seek [b]ackward\n"
+              "      * increase [V]olume\n"
+              "      * decrease [v]olume\n"
 	      (propertize "\n   * playlist\n" 'face 'simple-mpc-main-headers)
 	      "      * view [c]urrent playlist\n"
 	      "      * [C]lear current playlist\n"

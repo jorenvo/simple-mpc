@@ -48,6 +48,12 @@ with `simple-mpc-seek-forward' and `simple-mpc-seek-backward'."
   :group 'simple-mpc
   :type 'integer)
 
+(defcustom simple-mpc-volume-step-size 5
+  "The change in volume used for e.g. `simple-mpc-increase-volume'
+and `simple-mpc-decrease-volume'."
+  :group 'simple-mpc
+  :type 'integer)
+
 (defcustom simple-mpc-playlist-auto-refresh nil
   "Automatic refresh of the playlist buffer.
 

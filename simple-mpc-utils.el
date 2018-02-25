@@ -96,5 +96,13 @@ a Lisp program."
       "%file%"
     simple-mpc-playlist-format))
 
+(defun simple-mpc-convert-number-to-relative-string (number)
+  "Converts an integer NUMBER to a string prefixed with either -
+or +. This is useful for mpc commands like volume and seek."
+  (let ((number-string (number-to-string number)))
+    (if (> number 0)
+	(concat "+" number-string)
+      number-string)))
+
 (provide 'simple-mpc-utils)
 ;;; simple-mpc-utils.el ends here
