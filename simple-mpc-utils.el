@@ -64,6 +64,16 @@ it as a string."
     (simple-mpc-call-mpc t "playlist")
     (count-lines (point-min) (point-max))))
 
+(defun simple-mpc-message-current-volume ()
+  ;; Use "%s" as format-string. Otherwise message will
+  ;; interpret the percent symbol in mpc's output as an
+  ;; incomplete format specifier.
+  (message "%s"
+   (with-temp-buffer
+     (simple-mpc-call-mpc t "volume")
+     (delete-backward-char 1)  ;; delete trailing \n
+     (buffer-string))))
+
 (defun simple-mpc-goto-line (line-number)
   "Go to beginning of line LINE-NUMBER. Safe to be called from
 a Lisp program."

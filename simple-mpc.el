@@ -85,7 +85,8 @@
 
 (defun simple-mpc-modify-volume-internal (volume-change)
   (let ((volume-change-string (simple-mpc-convert-number-to-relative-string volume-change)))
-    (simple-mpc-call-mpc nil (list "volume" volume-change-string))))
+    (simple-mpc-call-mpc nil (list "volume" volume-change-string)))
+  (simple-mpc-message-current-volume))
 
 (defun simple-mpc-clear-current-playlist ()
   (interactive)
