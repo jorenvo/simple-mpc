@@ -40,7 +40,8 @@
 
 (defcustom simple-mpc-playlist-format ""
   "Format string that will be given to mpc through --format."
-  :group 'simple-mpc)
+  :group 'simple-mpc
+  :type 'string)
 
 (defcustom simple-mpc-seek-time-in-s 5
   "The time in seconds that will be used to do relative seeking
@@ -87,6 +88,11 @@ characters in GNU Emacs by pressing C-q <TAB>."
 (defface simple-mpc-main-headers
   '((t :inherit font-lock-type-face))
   "For the different headers in the main view."
+  :group 'simple-mpc)
+
+(defface simple-mpc-current-track-face
+  '((t :inherit font-lock-keyword-face :bold t))
+  "For the current track in the current playlist view."
   :group 'simple-mpc)
 
 (provide 'simple-mpc-vars)
