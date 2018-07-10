@@ -40,7 +40,8 @@
 
 (defcustom simple-mpc-playlist-format ""
   "Format string that will be given to mpc through --format."
-  :group 'simple-mpc)
+  :group 'simple-mpc
+  :type 'string)
 
 (defcustom simple-mpc-seek-time-in-s 5
   "The time in seconds that will be used to do relative seeking
