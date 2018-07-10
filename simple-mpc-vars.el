@@ -90,5 +90,10 @@ characters in GNU Emacs by pressing C-q <TAB>."
   "For the different headers in the main view."
   :group 'simple-mpc)
 
+(defface simple-mpc-current-track-face
+  '((t :inherit font-lock-keyword-face :bold t))
+  "For the current track in the current playlist view."
+  :group 'simple-mpc)
+
 (provide 'simple-mpc-vars)
 ;;; simple-mpc-vars.el ends here

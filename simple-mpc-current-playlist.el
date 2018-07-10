@@ -68,6 +68,11 @@ position. Otherwise, move it to the current track in the playlist."
         (insert
          (simple-mpc-format-as-table (simple-mpc-call-mpc-string
                                       (append (list "--format" (simple-mpc-get-playlist-format)) '("playlist")))))
+        (save-excursion
+          (simple-mpc-goto-line (simple-mpc-get-current-playlist-position))
+          (put-text-property
+           (line-beginning-position) (line-end-position)
+           'face 'simple-mpc-current-track-face))
         (if keep-point
             (progn
               (simple-mpc-goto-line original-line)
