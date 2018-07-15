@@ -53,11 +53,13 @@
 
 (defun simple-mpc-next ()
   (interactive)
-  (simple-mpc-call-mpc nil "next"))
+  (simple-mpc-call-mpc nil "next")
+  (simple-mpc-maybe-refresh-playlist t))
 
 (defun simple-mpc-prev ()
   (interactive)
-  (simple-mpc-call-mpc nil "prev"))
+  (simple-mpc-call-mpc nil "prev")
+  (simple-mpc-maybe-refresh-playlist t))
 
 (defun simple-mpc-seek-forward ()
   "Does a relative seek forward by `simple-mpc-seek-time-in-s' seconds."

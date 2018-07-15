@@ -90,7 +90,8 @@ position. Otherwise, move it to the current track in the playlist."
 (defun simple-mpc-play-current-line ()
   "Plays the song on the current line."
   (interactive)
-  (simple-mpc-call-mpc nil (list "play" (number-to-string (line-number-at-pos (point))))))
+  (simple-mpc-call-mpc nil (list "play" (number-to-string (line-number-at-pos (point)))))
+  (simple-mpc-view-current-playlist nil nil t))
 
 (defun simple-mpc-delete ()
   "Deletes the song on the current line from the playlist. When a
