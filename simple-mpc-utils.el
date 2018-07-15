@@ -71,7 +71,7 @@ it as a string."
   (message "%s"
    (with-temp-buffer
      (simple-mpc-call-mpc t "volume")
-     (delete-backward-char 1)  ;; delete trailing \n
+     (delete-char -1)  ;; delete trailing \n
      (buffer-string))))
 
 (defun simple-mpc-goto-line (line-number)
