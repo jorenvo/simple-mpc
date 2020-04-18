@@ -48,15 +48,18 @@
               simple-mpc-query-buffer-name)))
 
 (defun simple-mpc-toggle ()
+  "Toggle the playing / pause state."
   (interactive)
   (simple-mpc-call-mpc nil "toggle"))
 
 (defun simple-mpc-next ()
+  "Play the next song."
   (interactive)
   (simple-mpc-call-mpc nil "next")
   (simple-mpc-maybe-refresh-playlist t))
 
 (defun simple-mpc-prev ()
+  "Play the previous song."
   (interactive)
   (simple-mpc-call-mpc nil "prev")
   (simple-mpc-maybe-refresh-playlist t))
@@ -72,6 +75,7 @@
   (simple-mpc-seek-internal (- simple-mpc-seek-time-in-s)))
 
 (defun simple-mpc-seek-internal (time-in-seconds)
+  "Seek current song by TIME-IN-SECONDS."
   (let ((time-string (simple-mpc-convert-number-to-relative-string time-in-seconds)))
     (simple-mpc-call-mpc nil (list "seek" time-string))))
 
@@ -86,25 +90,30 @@
   (simple-mpc-modify-volume-internal (- simple-mpc-volume-step-size)))
 
 (defun simple-mpc-modify-volume-internal (volume-change)
+  "Helper function to adjust volume by VOLUME-CHANGE."
   (let ((volume-change-string (simple-mpc-convert-number-to-relative-string volume-change)))
     (simple-mpc-call-mpc nil (list "volume" volume-change-string)))
   (simple-mpc-message-current-volume))
 
 (defun simple-mpc-clear-current-playlist ()
+  "Clear the current playlist."
   (interactive)
   (simple-mpc-call-mpc nil "clear")
   (message "%s" "Cleared current playlist.")
   (simple-mpc-maybe-refresh-playlist))
 
 (defun simple-mpc-shuffle-current-playlist ()
+  "Shuffle the current playlist."
   (interactive)
   (simple-mpc-call-mpc nil "shuffle")
   (message "%s" "Shuffled current playlist.")
   (simple-mpc-maybe-refresh-playlist))
 
 (defun simple-mpc-load-playlist (playlist-name)
-  "Load an MPD playlist. Provides completion for playlists
-through the lsplaylists command."
+  "Load a MPD PLAYLIST-NAME.
+
+Provides completion for playlists through the lsplaylists
+command."
   (interactive
    (list
     (completing-read "Playlist: " (simple-mpc-call-mpc-strings "lsplaylists"))))
@@ -114,7 +123,9 @@ through the lsplaylists command."
 
 ;;;###autoload
 (defun simple-mpc (&optional ignore-auto noconfirm)
-  "Starts simple-mpc. IGNORE-AUTO and NOCONFIRM are passed by `revert-buffer'."
+  "Start simple-mpc.
+
+IGNORE-AUTO and NOCONFIRM are passed by `revert-buffer'."
   (interactive)
   (let ((buf (get-buffer-create simple-mpc-main-buffer-name)))
     (with-current-buffer buf
