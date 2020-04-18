@@ -45,17 +45,19 @@
   (set (make-local-variable 'revert-buffer-function) #'simple-mpc-view-current-playlist))
 
 (defun simple-mpc-current-playlist-quit ()
-  "Quits the current playlist mode and goes back to main."
+  "Quit the current playlist mode and go back to the main view."
   (interactive)
   (simple-mpc-playlist-refresh-timer-stop)
   (kill-buffer simple-mpc-current-playlist-buffer-name)
   (simple-mpc-switch-to-main-buffer))
 
 (defun simple-mpc-view-current-playlist (&optional ignore-auto noconfirm keep-point)
-  "Views the current playlist.
+  "View the current playlist.
 
 If optional argument KEEP-POINT is t, try to keep point in its current
-position. Otherwise, move it to the current track in the playlist."
+position. Otherwise, move it to the current track in the playlist.
+
+IGNORE-AUTO and NOCONFIRM are passed by `revert-buffer'."
   (interactive)
   (let ((buf (get-buffer-create simple-mpc-current-playlist-buffer-name)))
     (with-current-buffer buf
@@ -94,8 +96,10 @@ position. Otherwise, move it to the current track in the playlist."
   (simple-mpc-view-current-playlist nil nil t))
 
 (defun simple-mpc-delete ()
-  "Deletes the song on the current line from the playlist. When a
-region is active, it deletes all the tracks in the region."
+  "Delete the song on the current line from the playlist.
+
+When a region is active, it deletes all the tracks in the
+region."
   (interactive)
   (if (use-region-p)
       (let ((first-line-region (line-number-at-pos (region-beginning)))
@@ -114,8 +118,9 @@ position. Otherwise, move it to the current track in the playlist."
     (simple-mpc-view-current-playlist nil nil keep-point)))
 
 (defun simple-mpc-playlist-refresh-timer-start ()
-  "Start a timer that will refresh the playlist buffer every
- `simple-mpc-playlist-auto-refresh' seconds.
+  "Start a timer that will refresh the playlist buffer.
+
+Updates every `simple-mpc-playlist-auto-refresh' seconds.
 
 Do nothing if the timer is already running."
   (unless simple-mpc--playlist-refresh-timer
