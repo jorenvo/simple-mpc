@@ -27,6 +27,8 @@
 
 ;;; Code:
 
+(declare-function simple-mpc "simple-mpc")
+
 (defvar simple-mpc-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map "t" 'simple-mpc-toggle)
