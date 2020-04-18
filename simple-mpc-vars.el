@@ -29,8 +29,10 @@
 
 (defvar simple-mpc-main-buffer-name "*simple-mpc-main*"
   "Name of the simple-mpc buffer.")
+
 (defvar simple-mpc-current-playlist-buffer-name "*simple-mpc-current-playlist*"
   "Name of the simple-mpc buffer for the current playlist.")
+
 (defvar simple-mpc-query-buffer-name "*simple-mpc-query*"
   "Name of the simple-mpc query buffer.")
 
@@ -44,14 +46,17 @@
   :type 'string)
 
 (defcustom simple-mpc-seek-time-in-s 5
-  "The time in seconds that will be used to do relative seeking
-with `simple-mpc-seek-forward' and `simple-mpc-seek-backward'."
+  "The time in seconds that will be used to do relative seeking.
+
+Used with `simple-mpc-seek-forward' and `simple-mpc-seek-backward'."
   :group 'simple-mpc
   :type 'integer)
 
 (defcustom simple-mpc-volume-step-size 5
-  "The change in volume used for e.g. `simple-mpc-increase-volume'
-and `simple-mpc-decrease-volume'."
+  "Amount to change in volume.
+
+Used for e.g. `simple-mpc-increase-volume' and
+`simple-mpc-decrease-volume'."
   :group 'simple-mpc
   :type 'integer)
 
@@ -75,8 +80,7 @@ using this option it is important that
 `simple-mpc-playlist-format' contains a format that uses this
 separator.
 
-\\t should be a good choice for this. You can insert literal tab
-characters in GNU Emacs by pressing C-q <TAB>."
+TAB should be a good choice for this."
   :group 'simple-mpc
   :type 'string)
 
