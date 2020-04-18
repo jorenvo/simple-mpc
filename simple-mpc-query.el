@@ -52,17 +52,19 @@ form (`simple-mpc-playlist-format'. %file%).")
   (set (make-local-variable 'require-final-newline) nil))
 
 (defun simple-mpc-query-quit ()
-  "Quits the current playlist mode and goes back to main."
+  "Quit the current playlist mode and go back to main."
   (interactive)
   (kill-buffer simple-mpc-query-buffer-name)
   (simple-mpc-switch-to-main-buffer))
 
 (defun simple-mpc-query-get-%file%-for-result (result)
+  "Helper function to get the %file% from RESULT."
   (cdr (assoc result simple-mpc-query-current-result-alist)))
 
 (defun simple-mpc-query-build-result-alist (search-type search-query)
-  "Builds `simple-mpc-query-current-result-alist' according to
-SEARCH-TYPE and SEARCH-QUERY."
+  "Builds a list according to SEARCH-TYPE and SEARCH-QUERY.
+
+The list is stored in `simple-mpc-query-current-result-alist'."
   (setq simple-mpc-query-current-result-alist
         (let* ((file-metadata-delimiter "(simple-mpc)")
                (query-format (concat (simple-mpc-get-playlist-format) file-metadata-delimiter "%file%" file-metadata-delimiter)))
@@ -78,8 +80,9 @@ SEARCH-TYPE and SEARCH-QUERY."
                    "\n" t)))))
 
 (defun simple-mpc-query (search-type search-query)
-  "Perform an mpc search. SEARCH-TYPE is a tag type, SEARCH-QUERY
-is the actual query."
+  "Perform an mpc search.
+
+SEARCH-TYPE is a tag type, SEARCH-QUERY is the actual query."
   (interactive
    (list
     (completing-read "Search type: " '("artist" "album" "title" "track"
@@ -106,8 +109,9 @@ is the actual query."
   (simple-mpc-query-add t))
 
 (defun simple-mpc-query-add (&optional play)
-  "Add the song on the current line to the current playlist. When
-a region is active, add all the songs in the region to the
+  "Add the song on the current line to the current playlist.
+
+When a region is active, add all the songs in the region to the
 current playlist. When PLAY is non-nil, immediately play them."
   (interactive)
   (let ((current-amount-in-playlist (simple-mpc-get-amount-of-songs-in-playlist)))
@@ -136,7 +140,9 @@ current playlist. When PLAY is non-nil, immediately play them."
 	(simple-mpc-call-mpc nil (list "play" (number-to-string (1+ current-amount-in-playlist)))))))
 
 (defun simple-mpc-query-sort (&optional reverse)
-  "Sorts all query results alphabetically."
+  "Sort all query results alphabetically.
+
+REVERSE means descending order."
   (interactive)
   (read-only-mode -1)
   (sort-lines reverse (point-min) (point-max))
