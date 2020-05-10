@@ -43,11 +43,11 @@ form (`simple-mpc-playlist-format'. %file%).")
 \\{simple-mpc-query-mode-map}."
   :lighter " simple-mpc-query-mode"
   :keymap (let ((map (make-sparse-keymap)))
-	    (define-key map "q" 'simple-mpc-query-quit)
-	    (define-key map "S" 'simple-mpc-query-sort)
-	    (define-key map (kbd "<return>") 'simple-mpc-query-add)
-	    (define-key map (kbd "<S-return>") 'simple-mpc-query-add-and-play)
-	    map)
+            (define-key map "q" 'simple-mpc-query-quit)
+            (define-key map "S" 'simple-mpc-query-sort)
+            (define-key map (kbd "<return>") 'simple-mpc-query-add)
+            (define-key map (kbd "<S-return>") 'simple-mpc-query-add-and-play)
+            map)
   (set (make-local-variable 'require-final-newline) nil))
 
 (defun simple-mpc-query-quit ()
@@ -85,9 +85,9 @@ SEARCH-TYPE is a tag type, SEARCH-QUERY is the actual query."
   (interactive
    (list
     (completing-read "Search type: " '("artist" "album" "title" "track"
-				       "name" "genre" "date" "composer"
-				       "performer" "comment" "disc" "filename"
-				       "any") nil t)
+                                       "name" "genre" "date" "composer"
+                                       "performer" "comment" "disc" "filename"
+                                       "any") nil t)
     (read-string "Query: ")))
   (simple-mpc-query-build-result-alist search-type search-query)
   (let ((buf (get-buffer-create simple-mpc-query-buffer-name)))
@@ -115,18 +115,18 @@ current playlist. When PLAY is non-nil, immediately play them."
   (interactive)
   (let ((current-amount-in-playlist (simple-mpc-get-amount-of-songs-in-playlist)))
     (if (use-region-p)
-	(let ((first-line-region (line-number-at-pos (region-beginning)))
-	      (last-line-region (if (eq (region-end) (point-max))
-				    (line-number-at-pos (region-end))
-				  (1- (line-number-at-pos (region-end))))) ; usually point is on the next line so 1-
-	      (beginning-first-line-region)
-	      (end-last-line-region))
-	  (save-excursion
-	    (simple-mpc-goto-line first-line-region)
-	    (setq beginning-first-line-region (line-beginning-position))
-	    (simple-mpc-goto-line last-line-region)
-	    (setq end-last-line-region (line-end-position)))
-	  (simple-mpc-call-mpc nil (cons "add" (mapcar (lambda (result)
+        (let ((first-line-region (line-number-at-pos (region-beginning)))
+              (last-line-region (if (eq (region-end) (point-max))
+                                    (line-number-at-pos (region-end))
+                                  (1- (line-number-at-pos (region-end))))) ; usually point is on the next line so 1-
+              (beginning-first-line-region)
+              (end-last-line-region))
+          (save-excursion
+            (simple-mpc-goto-line first-line-region)
+            (setq beginning-first-line-region (line-beginning-position))
+            (simple-mpc-goto-line last-line-region)
+            (setq end-last-line-region (line-end-position)))
+          (simple-mpc-call-mpc nil (cons "add" (mapcar (lambda (result)
                                                          (simple-mpc-query-get-%file%-for-result result))
                                                        (split-string (buffer-substring-no-properties beginning-first-line-region
                                                                                                      end-last-line-region)
@@ -136,7 +136,7 @@ current playlist. When PLAY is non-nil, immediately play them."
                                             (buffer-substring-no-properties (line-beginning-position) (line-end-position)))))
       (forward-line))
     (if play
-	(simple-mpc-call-mpc nil (list "play" (number-to-string (1+ current-amount-in-playlist)))))))
+        (simple-mpc-call-mpc nil (list "play" (number-to-string (1+ current-amount-in-playlist)))))))
 
 (defun simple-mpc-query-sort (&optional reverse)
   "Sort all query results alphabetically.
