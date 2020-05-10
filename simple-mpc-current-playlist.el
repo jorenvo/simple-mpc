@@ -38,10 +38,10 @@
 \\{simple-mpc-current-playlist-mode-map}."
   :lighter " simple-mpc-current-playlist"
   :keymap (let ((map (make-sparse-keymap)))
-	    (define-key map (kbd "<return>") 'simple-mpc-play-current-line)
-	    (define-key map "d" 'simple-mpc-delete)
-	    (define-key map "q" 'simple-mpc-current-playlist-quit)
-	    map)
+            (define-key map (kbd "<return>") 'simple-mpc-play-current-line)
+            (define-key map "d" 'simple-mpc-delete)
+            (define-key map "q" 'simple-mpc-current-playlist-quit)
+            map)
   (set (make-local-variable 'revert-buffer-function) #'simple-mpc-view-current-playlist))
 
 (defun simple-mpc-current-playlist-quit ()
@@ -103,8 +103,8 @@ region."
   (interactive)
   (if (use-region-p)
       (let ((first-line-region (line-number-at-pos (region-beginning)))
-	    (last-line-region (1- (line-number-at-pos (region-end))))) ; usually point is on the next line so 1-
-	(simple-mpc-call-mpc nil (cons "del" (mapcar 'number-to-string (number-sequence first-line-region
+            (last-line-region (1- (line-number-at-pos (region-end))))) ; usually point is on the next line so 1-
+        (simple-mpc-call-mpc nil (cons "del" (mapcar 'number-to-string (number-sequence first-line-region
                                                                                         last-line-region)))))
     (simple-mpc-call-mpc nil (list "del" (number-to-string (line-number-at-pos (point))))))
   (simple-mpc-view-current-playlist))
