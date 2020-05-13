@@ -127,7 +127,7 @@ The prefix is either - or +. This is useful for mpc commands
 like volume and seek."
   (let ((number-string (number-to-string number)))
     (if (> number 0)
-	(concat "+" number-string)
+        (concat "+" number-string)
       number-string)))
 
 (provide 'simple-mpc-utils)
