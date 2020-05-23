@@ -26,13 +26,17 @@
 
 ;;; Code:
 
+(require 's)
+
 (require 'simple-mpc-mode)
 (require 'simple-mpc-vars)
 (require 'simple-mpc-utils)
 
 (defvar simple-mpc-query-current-result-alist nil
-  "An association list containing a (`simple-mpc-playlist-format'
-. %file%) pair for every result in the latest query.")
+  "A list containing a pair for every result in the latest query.
+
+The list is an association list of the
+form (`simple-mpc-playlist-format'. %file%).")
 
 (define-minor-mode simple-mpc-query-mode
   "Minor mode for the simple-mpc-query screen.
