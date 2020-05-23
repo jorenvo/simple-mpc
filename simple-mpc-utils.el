@@ -1,10 +1,10 @@
 ;;; simple-mpc-utils.el --- part of simple-mpc
 ;;
-;; Copyright (C) 2015,2016 Joren Van Onder <joren.vanonder@gmail.com>
+;; Copyright (C) 2015,2016 Joren Van Onder <joren@jvo.sh>
 ;; Copyright (C) 2020 Sean Farley <sean@farley.io>
 
-;; Author: Joren Van Onder <joren.vanonder@gmail.com>
-;; Maintainer: Joren Van Onder <joren.vanonder@gmail.com>
+;; Author: Joren Van Onder <joren@jvo.sh>
+;; Maintainer: Joren Van Onder <joren@jvo.sh>
 ;; Keywords: multimedia, mpd, mpc
 ;; Version: 1.0
 
