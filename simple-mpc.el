@@ -2,6 +2,7 @@
 
 ;; Copyright (C) 2015,2016 Joren Van Onder <joren.vanonder@gmail.com>
 ;; Copyright (C) 2016 Andriy Kmit' <dev@madand.net>
+;; Copyright (C) 2020 Sean Farley <sean@farley.io>
 
 ;; Author: Joren Van Onder <joren.vanonder@gmail.com>
 ;; Maintainer: Joren Van Onder <joren.vanonder@gmail.com>
