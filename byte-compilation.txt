@@ -1,0 +1,7 @@
+First run
+
+(eval-and-compile
+  (add-to-list 'load-path "~/.emacs.d/.")
+  (add-to-list 'load-path "~/Code/simple-mpc"))
+
+Then run C-u 0 M-x byte-recompile-dir
