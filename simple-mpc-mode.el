@@ -26,6 +26,7 @@
 ;;; Commentary:
 
 ;;; Code:
+(require 'simple-mpc-vars)
 
 (defvar simple-mpc-mode-map
   (let ((map (make-sparse-keymap)))
@@ -50,6 +51,37 @@
 \\{simple-mpc-mode-map}."
   (setq truncate-lines t overwrite-mode 'overwrite-mode-binary)
   (set (make-local-variable 'revert-buffer-function) #'simple-mpc))
+
+;;;###autoload
+(defun simple-mpc (&optional ignore-auto noconfirm)
+  "Start simple-mpc.
+
+IGNORE-AUTO and NOCONFIRM are passed by `revert-buffer'."
+  (interactive)
+  (let ((buf (get-buffer-create simple-mpc-main-buffer-name)))
+    (with-current-buffer buf
+      (read-only-mode -1)
+      (erase-buffer)
+      (insert (propertize "* simple-mpc *\n\n"
+                          'face 'simple-mpc-main-name)
+              (propertize "   * controls\n" 'face 'simple-mpc-main-headers)
+              "      * [t]oggle\n"
+              "      * [n]ext track\n"
+              "      * [p]revious track\n"
+              "      * seek [f]orward\n"
+              "      * seek [b]ackward\n"
+              "      * increase [V]olume\n"
+              "      * decrease [v]olume\n"
+              (propertize "\n   * playlist\n" 'face 'simple-mpc-main-headers)
+              "      * view [c]urrent playlist\n"
+              "      * [C]lear current playlist\n"
+              "      * [S]huffle playlist\n"
+              "      * [l]oad playlist\n"
+              "      * [s]earch database\n"
+              (propertize "\n   * misc\n" 'face 'simple-mpc-main-headers)
+              "      * [q]uit")
+      (simple-mpc-mode) ; start major mode
+      (switch-to-buffer buf))))
 
 (provide 'simple-mpc-mode)
 ;;; simple-mpc-mode.el ends here
