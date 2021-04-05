@@ -9,7 +9,6 @@
 ;; URL: https://github.com/jorenvo/simple-mpc
 ;; Keywords: multimedia, mpd, mpc
 ;; Version: 1.0
-;; Package-Requires: ((s "1.10.0"))
 
 ;; This file is not part of GNU Emacs.
 ;;

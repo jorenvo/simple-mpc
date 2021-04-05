@@ -27,7 +27,9 @@
 
 ;;; Code:
 
-(require 's)
+(eval-when-compile
+  (require 'rx)
+  (require 'pcase))
 
 (require 'simple-mpc-mode)
 (require 'simple-mpc-vars)
@@ -69,11 +71,12 @@ The list is stored in `simple-mpc-query-current-result-alist'."
         (let* ((file-metadata-delimiter "(simple-mpc)")
                (query-format (concat (simple-mpc-get-playlist-format) file-metadata-delimiter "%file%" file-metadata-delimiter)))
           (mapcar (lambda (mpc-result)
-                    (let* ((matches (s-match (format "^\\(.*\\)%s\\(.*\\)%s" file-metadata-delimiter file-metadata-delimiter) mpc-result))
-                           (full-match (nth 0 matches))
-                           (user-specified-format (nth 1 matches))
-                           (file (nth 2 matches)))
-                      (cons user-specified-format file)))
+                    (save-match-data
+                      (pcase mpc-result
+                        ((rx string-start
+                             (let user-specified-format (* any)) (literal file-metadata-delimiter)
+                             (let file (* any)) (literal file-metadata-delimiter))
+                         (cons user-specified-format file)))))
                   (split-string
                    (simple-mpc-format-as-table (simple-mpc-call-mpc-string
                                                 (list "--format" query-format "search" search-type search-query)))
