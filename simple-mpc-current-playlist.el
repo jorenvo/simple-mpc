@@ -108,7 +108,7 @@ region."
         (simple-mpc-call-mpc nil (cons "del" (mapcar 'number-to-string (number-sequence first-line-region
                                                                                         last-line-region)))))
     (simple-mpc-call-mpc nil (list "del" (number-to-string (line-number-at-pos (point))))))
-  (simple-mpc-view-current-playlist))
+  (simple-mpc-view-current-playlist nil nil t))
 
 (defun simple-mpc-maybe-refresh-playlist (&optional keep-point)
   "If the current buffer is a simple mpc playlist buffer, refresh its contents.
