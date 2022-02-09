@@ -36,6 +36,7 @@
     (define-key map "b" 'simple-mpc-seek-backward)
     (define-key map "V" 'simple-mpc-increase-volume)
     (define-key map "v" 'simple-mpc-decrease-volume)
+    (define-key map "r" 'simple-mpc-toggle-repeat)
     (define-key map "c" 'simple-mpc-view-current-playlist)  ;; autoload this
     (define-key map "C" 'simple-mpc-clear-current-playlist)
     (define-key map "S" 'simple-mpc-shuffle-current-playlist)
