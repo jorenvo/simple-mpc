@@ -3,6 +3,7 @@
 ;; Copyright (C) 2015,2016 Joren Van Onder <joren@jvo.sh>
 ;; Copyright (C) 2016 Andriy Kmit' <dev@madand.net>
 ;; Copyright (C) 2020 Sean Farley <sean@farley.io>
+;; Copyright (C) 2022 Joseph Turner <joseph@breatheoutbreathe.in>
 
 ;; Author: Joren Van Onder <joren@jvo.sh>
 ;; Maintainer: Joren Van Onder <joren@jvo.sh>
@@ -104,6 +105,12 @@
   (message "%s" "Cleared current playlist.")
   (simple-mpc-maybe-refresh-playlist))
 
+(defun simple-mpc-toggle-repeat ()
+  "Toggle repeat mode."
+  (interactive)
+  (simple-mpc-call-mpc nil "repeat")
+  (message "%s" "Toggled repeat mode."))
+
 (defun simple-mpc-shuffle-current-playlist ()
   "Shuffle the current playlist."
   (interactive)
@@ -143,6 +150,7 @@ IGNORE-AUTO and NOCONFIRM are passed by `revert-buffer'."
               "      * seek [b]ackward\n"
               "      * increase [V]olume\n"
               "      * decrease [v]olume\n"
+              "      * toggle [r]epeat mode\n"
               (propertize "\n   * playlist\n" 'face 'simple-mpc-main-headers)
               "      * view [c]urrent playlist\n"
               "      * [C]lear current playlist\n"
