@@ -87,6 +87,34 @@ below for completeness:
 | =q=        | simple-mpc-current-playlist-quit |
 | =<return>= | simple-mpc-play-current-line     |
 |------------+----------------------------------|
+*** Hook
+You can use a hook like this to ensure that mpd is running when you
+open simple-mpc:
+
+  #+begin_src emacs-lisp
+    (add-hook 'simple-mpc-mode-hook (lambda () (my/mpd-start)))
+
+    (defun my/mpd-start ()
+      "Start MPD if it's not already running and check, then update the MPD database."
+      (interactive)
+      (if (= 0 (call-process "sh" nil nil nil "-c" "pgrep mpd"))
+          (message "MPD was already running.")
+        (shell-command "mpd")
+        (my/update-database)
+        (message "MPD started.")))
+
+    (defun my/mpd-kill ()
+      "Kill MPD."
+      (interactive)
+      (call-process "killall" nil nil nil "mpd")
+      (message "MPD killed."))
+
+    (defun my/mpd-update ()
+      "Updates the MPD database synchronously."
+      (interactive)
+      (call-process "mpc" nil nil nil "update")
+      (message "MPD database updated."))
+  #+end_src
 ** Configuration
 Configuring simple-mpc can be done entirely through the =simple-mpc=
 customization group (=M-x customize-group simple-mpc<RET>=).
