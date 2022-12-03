@@ -100,7 +100,7 @@ open simple-mpc:
       (if (= 0 (call-process "sh" nil nil nil "-c" "pgrep mpd"))
           (message "MPD was already running.")
         (shell-command "mpd")
-        (my/update-database)
+        (my/mpd-update)
         (message "MPD started.")))
 
     (defun my/mpd-kill ()
