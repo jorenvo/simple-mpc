@@ -53,7 +53,8 @@
 (defun simple-mpc-toggle ()
   "Toggle the playing / pause state."
   (interactive)
-  (simple-mpc-call-mpc nil "toggle"))
+  (simple-mpc-call-mpc nil "toggle")
+  (message "%s" (concat (simple-mpc-playing-status) " " (simple-mpc-current-artist-and-song))))
 
 (defun simple-mpc-next ()
   "Play the next song."
