@@ -112,7 +112,7 @@
   "Toggle repeat mode."
   (interactive)
   (simple-mpc-call-mpc nil "repeat")
-  (message "%s" "Toggled repeat mode."))
+  (message "%s" (simple-mpc-repeat-status)))
 
 (defun simple-mpc-shuffle-current-playlist ()
   "Shuffle the current playlist."
