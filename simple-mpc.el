@@ -73,12 +73,14 @@
 (defun simple-mpc-seek-forward ()
   "Does a relative seek forward by `simple-mpc-seek-time-in-s' seconds."
   (interactive)
-  (simple-mpc-seek-internal simple-mpc-seek-time-in-s))
+  (simple-mpc-seek-internal simple-mpc-seek-time-in-s)
+  (message "%s" (concat (simple-mpc-song-position) " " (simple-mpc-current-artist-and-song))))
 
 (defun simple-mpc-seek-backward ()
   "Does a relative seek backward by -`simple-mpc-seek-time-in-s' seconds."
   (interactive)
-  (simple-mpc-seek-internal (- simple-mpc-seek-time-in-s)))
+  (simple-mpc-seek-internal (- simple-mpc-seek-time-in-s))
+  (message "%s" (concat (simple-mpc-song-position) " " (simple-mpc-current-artist-and-song))))
 
 (defun simple-mpc-seek-internal (time-in-seconds)
   "Seek current song by TIME-IN-SECONDS."
