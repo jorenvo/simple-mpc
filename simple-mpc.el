@@ -60,13 +60,15 @@
   "Play the next song."
   (interactive)
   (simple-mpc-call-mpc nil "next")
-  (simple-mpc-maybe-refresh-playlist t))
+  (simple-mpc-maybe-refresh-playlist t)
+  (message "%s" (simple-mpc-current-artist-and-song)))
 
 (defun simple-mpc-prev ()
   "Play the previous song."
   (interactive)
   (simple-mpc-call-mpc nil "prev")
-  (simple-mpc-maybe-refresh-playlist t))
+  (simple-mpc-maybe-refresh-playlist t)
+  (message "%s" (simple-mpc-current-artist-and-song)))
 
 (defun simple-mpc-seek-forward ()
   "Does a relative seek forward by `simple-mpc-seek-time-in-s' seconds."
