@@ -104,6 +104,14 @@ output as a string."
     (mark-sexp)
     (buffer-substring (mark) (point))))
 
+(defun simple-mpc-repeat-status ()
+  "Return repeat status."
+  (with-temp-buffer
+    (simple-mpc-call-mpc t "status")
+    (search-backward "repeat")
+    (mark-word 2)
+    (buffer-substring (mark) (point))))
+
 (defun simple-mpc-goto-line (line-number)
   "Go to beginning of line LINE-NUMBER.
 
