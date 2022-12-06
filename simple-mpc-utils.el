@@ -112,6 +112,16 @@ output as a string."
     (mark-word 2)
     (buffer-substring (mark) (point))))
 
+(defun simple-mpc-song-position ()
+  "Return song position."
+  (with-temp-buffer
+    (simple-mpc-call-mpc t "status")
+    (search-backward-regexp " [0-9:]+/")
+    (forward-char)
+    (push-mark)
+    (end-of-line)
+    (buffer-substring (point) (mark))))
+
 (defun simple-mpc-goto-line (line-number)
   "Go to beginning of line LINE-NUMBER.
 
