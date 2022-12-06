@@ -2,6 +2,7 @@
 ;;
 ;; Copyright (C) 2015,2016 Joren Van Onder <joren@jvo.sh>
 ;; Copyright (C) 2020 Sean Farley <sean@farley.io>
+;; Copyright (C) 2022 Joseph Turner <joseph@breatheoutbreathe.in>
 
 ;; Author: Joren Van Onder <joren@jvo.sh>
 ;; Maintainer: Joren Van Onder <joren@jvo.sh>
@@ -85,6 +86,14 @@ output as a string."
      (simple-mpc-call-mpc t "volume")
      (delete-char -1)  ;; delete trailing \n
      (buffer-string))))
+
+(defun simple-mpc-current-artist-and-song ()
+  "Return the currently playing artist and song."
+  (with-temp-buffer
+    (simple-mpc-call-mpc t "status")
+    (beginning-of-buffer)
+    (end-of-line)
+    (buffer-substring (point-min) (point))))
 
 (defun simple-mpc-goto-line (line-number)
   "Go to beginning of line LINE-NUMBER.
