@@ -95,6 +95,15 @@ output as a string."
     (end-of-line)
     (buffer-substring (point-min) (point))))
 
+(defun simple-mpc-playing-status ()
+  "Return either `playing' or `paused'."
+  (with-temp-buffer
+    (simple-mpc-call-mpc t "status")
+    (beginning-of-buffer)
+    (next-line)
+    (mark-sexp)
+    (buffer-substring (mark) (point))))
+
 (defun simple-mpc-goto-line (line-number)
   "Go to beginning of line LINE-NUMBER.
 
