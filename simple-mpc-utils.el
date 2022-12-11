@@ -92,8 +92,7 @@ output as a string."
   (with-temp-buffer
     (simple-mpc-call-mpc t "status")
     (beginning-of-buffer)
-    (end-of-line)
-    (buffer-substring (point-min) (point))))
+    (buffer-substring (point) (line-end-position))))
 
 (defun simple-mpc-playing-status ()
   "Return either `playing' or `paused'."
@@ -101,26 +100,26 @@ output as a string."
     (simple-mpc-call-mpc t "status")
     (beginning-of-buffer)
     (next-line)
-    (mark-sexp)
-    (buffer-substring (mark) (point))))
+    (forward-sexp)
+    (buffer-substring (line-beginning-position) (point))))
 
 (defun simple-mpc-repeat-status ()
   "Return repeat status."
   (with-temp-buffer
     (simple-mpc-call-mpc t "status")
-    (search-backward "repeat")
-    (mark-word 2)
-    (buffer-substring (mark) (point))))
+    (let (start)
+      (search-backward "repeat")
+      (setq start (point))
+      (forward-sexp 2)
+    (buffer-substring start (point))))
 
 (defun simple-mpc-song-position ()
   "Return song position."
   (with-temp-buffer
     (simple-mpc-call-mpc t "status")
-    (search-backward-regexp " [0-9:]+/")
+    (search-backward-regexp " [0-9]+:")
     (forward-char)
-    (push-mark)
-    (end-of-line)
-    (buffer-substring (point) (mark))))
+    (buffer-substring (point) (line-end-position))))
 
 (defun simple-mpc-goto-line (line-number)
   "Go to beginning of line LINE-NUMBER.
