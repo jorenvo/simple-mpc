@@ -87,39 +87,43 @@ output as a string."
      (delete-char -1)  ;; delete trailing \n
      (buffer-string))))
 
+(defmacro simple-mpc-extract-status (&rest args)
+  `(let (start end)
+     (with-temp-buffer (simple-mpc-call-mpc t "status")
+                       ,@args
+                       (buffer-substring start end))))
+
 (defun simple-mpc-current-artist-and-song ()
   "Return the currently playing artist and song."
-  (with-temp-buffer
-    (simple-mpc-call-mpc t "status")
-    (beginning-of-buffer)
-    (buffer-substring (point) (line-end-position))))
+  (simple-mpc-extract-status
+   (beginning-of-buffer)
+   (setq start (point))
+   (setq end (line-end-position))))
 
 (defun simple-mpc-playing-status ()
   "Return either `playing' or `paused'."
-  (with-temp-buffer
-    (simple-mpc-call-mpc t "status")
-    (beginning-of-buffer)
-    (next-line)
-    (forward-sexp)
-    (buffer-substring (line-beginning-position) (point))))
+  (simple-mpc-extract-status
+   (beginning-of-buffer)
+   (next-line)
+   (setq start (point))
+   (forward-sexp)
+   (setq end (point))))
 
 (defun simple-mpc-repeat-status ()
   "Return repeat status."
-  (with-temp-buffer
-    (simple-mpc-call-mpc t "status")
-    (let (start)
-      (search-backward "repeat")
-      (setq start (point))
-      (forward-sexp 2)
-    (buffer-substring start (point))))
+  (simple-mpc-extract-status
+   (search-backward "repeat")
+   (setq start (point))
+   (forward-sexp 2)
+   (setq end (point))))
 
 (defun simple-mpc-song-position ()
   "Return song position."
-  (with-temp-buffer
-    (simple-mpc-call-mpc t "status")
-    (search-backward-regexp " [0-9]+:")
-    (forward-char)
-    (buffer-substring (point) (line-end-position))))
+  (simple-mpc-extract-status
+   (search-backward-regexp " [0-9]+:")
+   (forward-char)
+   (setq start (point))
+   (setq end (line-end-position))))
 
 (defun simple-mpc-goto-line (line-number)
   "Go to beginning of line LINE-NUMBER.
