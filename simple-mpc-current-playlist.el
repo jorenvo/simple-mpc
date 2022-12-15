@@ -71,24 +71,27 @@ IGNORE-AUTO and NOCONFIRM are passed by `revert-buffer'."
         (insert
          (simple-mpc-format-as-table (simple-mpc-call-mpc-string
                                       (append (list "--format" (simple-mpc-get-playlist-format)) '("playlist")))))
-        (save-excursion
-          (simple-mpc-goto-line (simple-mpc-get-current-playlist-position))
-          (put-text-property
-           (line-beginning-position) (line-end-position)
-           'face 'simple-mpc-current-track-face))
-        (if keep-point
-            (progn
-              (simple-mpc-goto-line original-line)
-              (move-to-column original-column)
-              (set-window-start nil window-start t)
-              (set-window-hscroll nil window-hscroll))
-          (simple-mpc-goto-line (simple-mpc-get-current-playlist-position)))
-        (switch-to-buffer buf)
-        (simple-mpc-mode)
-        (simple-mpc-current-playlist-mode)
-        (hl-line-mode)
-        (when simple-mpc-playlist-auto-refresh
-          (simple-mpc-playlist-refresh-timer-start))))))
+        (let ((playlist-position 0))
+          (when (simple-mpc-extract-status 'playlist-position)
+            (setq playlist-position (string-to-number (simple-mpc-extract-status 'playlist-position))))
+          (save-excursion
+            (simple-mpc-goto-line playlist-position)
+            (put-text-property
+             (line-beginning-position) (line-end-position)
+             'face 'simple-mpc-current-track-face))
+          (if keep-point
+              (progn
+                (simple-mpc-goto-line original-line)
+                (move-to-column original-column)
+                (set-window-start nil window-start t)
+                (set-window-hscroll nil window-hscroll))
+            (simple-mpc-goto-line playlist-position))
+          (switch-to-buffer buf)
+          (simple-mpc-mode)
+          (simple-mpc-current-playlist-mode)
+          (hl-line-mode)
+          (when simple-mpc-playlist-auto-refresh
+            (simple-mpc-playlist-refresh-timer-start)))))))
 
 (defun simple-mpc-play-current-line ()
   "Plays the song on the current line."

@@ -100,12 +100,6 @@ output as a string."
     (simple-mpc-call-mpc t mpc-args)
     (buffer-string)))
 
-(defun simple-mpc-get-current-playlist-position ()
-  "Return the position, as a number, of the current song."
-  (with-temp-buffer
-    (simple-mpc-call-mpc t '("current" "-f" "%position%"))
-    (string-to-number (buffer-string))))
-
 (defun simple-mpc-get-amount-of-songs-in-playlist ()
   "Return the number of songs in the current playlist."
   (with-temp-buffer
