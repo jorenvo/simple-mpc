@@ -100,12 +100,6 @@ output as a string."
     (simple-mpc-call-mpc t mpc-args)
     (buffer-string)))
 
-(defun simple-mpc-get-amount-of-songs-in-playlist ()
-  "Return the number of songs in the current playlist."
-  (with-temp-buffer
-    (simple-mpc-call-mpc t "playlist")
-    (count-lines (point-min) (point-max))))
-
 (defun simple-mpc-extract-status (type)
   "Return the mpc data corresponding to TYPE of current song. TYPE may be one of the keys of `simple-mpc-status-re-groups'."
   (with-temp-buffer

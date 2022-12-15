@@ -114,7 +114,9 @@ SEARCH-TYPE is a tag type, SEARCH-QUERY is the actual query."
 When a region is active, add all the songs in the region to the
 current playlist. When PLAY is non-nil, immediately play them."
   (interactive)
-  (let ((current-amount-in-playlist (simple-mpc-get-amount-of-songs-in-playlist)))
+  (let ((playlist-length 0))
+    (when (simple-mpc-extract-status 'playlist-length)
+      (setq playlist-length (string-to-number (simple-mpc-extract-status 'playlist-length))))
     (if (use-region-p)
         (let ((first-line-region (line-number-at-pos (region-beginning)))
               (last-line-region (if (eq (region-end) (point-max))
@@ -137,7 +139,7 @@ current playlist. When PLAY is non-nil, immediately play them."
                                             (buffer-substring-no-properties (line-beginning-position) (line-end-position)))))
       (forward-line))
     (if play
-        (simple-mpc-call-mpc nil (list "play" (number-to-string (1+ current-amount-in-playlist)))))))
+        (simple-mpc-call-mpc nil (list "play" (number-to-string (1+ playlist-length)))))))
 
 (defun simple-mpc-query-sort (&optional reverse)
   "Sort all query results alphabetically.
