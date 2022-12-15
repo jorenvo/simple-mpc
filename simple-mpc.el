@@ -101,7 +101,7 @@
   "Helper function to adjust volume by VOLUME-CHANGE."
   (let ((volume-change-string (simple-mpc-convert-number-to-relative-string volume-change)))
     (simple-mpc-call-mpc nil (list "volume" volume-change-string)))
-  (simple-mpc-message-current-volume))
+  (message "%s" (simple-mpc-extract-status 'volume)))
 
 (defun simple-mpc-clear-current-playlist ()
   "Clear the current playlist."

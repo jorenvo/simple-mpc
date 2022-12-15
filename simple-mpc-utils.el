@@ -112,17 +112,6 @@ output as a string."
     (simple-mpc-call-mpc t "playlist")
     (count-lines (point-min) (point-max))))
 
-(defun simple-mpc-message-current-volume ()
-  "Return the current volume."
-  ;; Use "%s" as format-string. Otherwise message will
-  ;; interpret the percent symbol in mpc's output as an
-  ;; incomplete format specifier.
-  (message "%s"
-           (with-temp-buffer
-             (simple-mpc-call-mpc t "volume")
-             (delete-char -1)  ;; delete trailing \n
-             (buffer-string))))
-
 (defun simple-mpc-extract-status (type)
   "Return the mpc data corresponding to TYPE of current song. TYPE may be one of the keys of `simple-mpc-status-re-groups'."
   (with-temp-buffer
