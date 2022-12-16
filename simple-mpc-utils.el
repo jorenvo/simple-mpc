@@ -51,7 +51,7 @@
    (group "single: " (or "on" "off"))         ; Single status
    (one-or-more blank)
    (group "consume: " (or "on" "off")))       ; Consume status
-  "Regular expression to capture parts of `mpc status'. This regex will not match if `mpd' is not running.")
+  "Regular expression to capture parts of `mpc status'. This regex will not match if `mpd' is not running or if the playlist is empty.")
 
 (defconst simple-mpc-status-re-groups
   '((artist-song       . 1)
