@@ -28,6 +28,7 @@
 
 ;;; Code:
 
+(require 'rx)
 (require 'simple-mpc-vars)
 
 (defconst simple-mpc-status-re
