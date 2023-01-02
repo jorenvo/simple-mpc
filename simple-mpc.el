@@ -53,29 +53,34 @@
 (defun simple-mpc-toggle ()
   "Toggle the playing / pause state."
   (interactive)
-  (simple-mpc-call-mpc nil "toggle"))
+  (simple-mpc-call-mpc nil "toggle")
+  (message "%s" (concat (simple-mpc-extract-status 'playing-paused) " " (simple-mpc-extract-status 'artist-song))))
 
 (defun simple-mpc-next ()
   "Play the next song."
   (interactive)
   (simple-mpc-call-mpc nil "next")
-  (simple-mpc-maybe-refresh-playlist t))
+  (simple-mpc-maybe-refresh-playlist t)
+  (message "%s" (simple-mpc-extract-status 'artist-song)))
 
 (defun simple-mpc-prev ()
   "Play the previous song."
   (interactive)
   (simple-mpc-call-mpc nil "prev")
-  (simple-mpc-maybe-refresh-playlist t))
+  (simple-mpc-maybe-refresh-playlist t)
+  (message "%s" (simple-mpc-extract-status 'artist-song)))
 
 (defun simple-mpc-seek-forward ()
   "Does a relative seek forward by `simple-mpc-seek-time-in-s' seconds."
   (interactive)
-  (simple-mpc-seek-internal simple-mpc-seek-time-in-s))
+  (simple-mpc-seek-internal simple-mpc-seek-time-in-s)
+  (message "%s" (concat (simple-mpc-extract-status 'song-position) " " (simple-mpc-extract-status 'artist-song))))
 
 (defun simple-mpc-seek-backward ()
   "Does a relative seek backward by -`simple-mpc-seek-time-in-s' seconds."
   (interactive)
-  (simple-mpc-seek-internal (- simple-mpc-seek-time-in-s)))
+  (simple-mpc-seek-internal (- simple-mpc-seek-time-in-s))
+  (message "%s" (concat (simple-mpc-extract-status 'song-position) " " (simple-mpc-extract-status 'artist-song))))
 
 (defun simple-mpc-seek-internal (time-in-seconds)
   "Seek current song by TIME-IN-SECONDS."
@@ -96,7 +101,7 @@
   "Helper function to adjust volume by VOLUME-CHANGE."
   (let ((volume-change-string (simple-mpc-convert-number-to-relative-string volume-change)))
     (simple-mpc-call-mpc nil (list "volume" volume-change-string)))
-  (simple-mpc-message-current-volume))
+  (message "%s" (simple-mpc-extract-status 'volume)))
 
 (defun simple-mpc-clear-current-playlist ()
   "Clear the current playlist."
@@ -109,7 +114,7 @@
   "Toggle repeat mode."
   (interactive)
   (simple-mpc-call-mpc nil "repeat")
-  (message "%s" "Toggled repeat mode."))
+  (message "%s" (simple-mpc-extract-status 'repeat)))
 
 (defun simple-mpc-shuffle-current-playlist ()
   "Shuffle the current playlist."

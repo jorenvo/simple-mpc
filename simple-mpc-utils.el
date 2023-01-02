@@ -2,6 +2,7 @@
 ;;
 ;; Copyright (C) 2015,2016 Joren Van Onder <joren@jvo.sh>
 ;; Copyright (C) 2020 Sean Farley <sean@farley.io>
+;; Copyright (C) 2022 Joseph Turner <joseph@breatheoutbreathe.in>
 
 ;; Author: Joren Van Onder <joren@jvo.sh>
 ;; Maintainer: Joren Van Onder <joren@jvo.sh>
@@ -27,7 +28,44 @@
 
 ;;; Code:
 
+(require 'rx)
 (require 'simple-mpc-vars)
+
+(defconst simple-mpc-status-re
+  (rx
+   (group (one-or-more not-newline))          ; Artist - Song title
+   "\n"
+   (group "[" (or "playing" "paused") "]")    ; Playing/paused status
+   (one-or-more blank)
+   "#" (group (one-or-more digit))            ; Playlist position
+   "/"
+   (group (one-or-more digit))                ; Playlist length
+   (one-or-more blank)
+   (group (one-or-more not-newline))          ; Song position
+   "\n"
+   (group "volume:" (zero-or-one blank) (one-or-more digit) "%") ; Volume
+   (one-or-more blank)
+   (group "repeat: " (or "on" "off"))         ; Repeat status
+   (one-or-more blank)
+   (group "random: " (or "on" "off"))         ; Random status
+   (one-or-more blank)
+   (group "single: " (or "on" "off"))         ; Single status
+   (one-or-more blank)
+   (group "consume: " (or "on" "off")))       ; Consume status
+  "Regular expression to capture parts of `mpc status'. This regex will not match if `mpd' is not running or if the playlist is empty.")
+
+(defconst simple-mpc-status-re-groups
+  '((artist-song       . 1)
+    (playing-paused    . 2)
+    (playlist-position . 3)
+    (playlist-length   . 4)
+    (song-position     . 5)
+    (volume            . 6)
+    (repeat            . 7)
+    (random            . 8)
+    (single            . 9)
+    (consume           . 10))
+  "Alist mapping mpc data types to `simple-mpc-status-re' capture group.")
 
 (defvar simple-mpc-arguments ""
   "Extra arguments that will be given to mpc.
@@ -63,28 +101,13 @@ output as a string."
     (simple-mpc-call-mpc t mpc-args)
     (buffer-string)))
 
-(defun simple-mpc-get-current-playlist-position ()
-  "Return the position, as a number, of the current song."
+(defun simple-mpc-extract-status (type)
+  "Return the mpc data corresponding to TYPE of current song. TYPE may be one of the keys of `simple-mpc-status-re-groups'."
   (with-temp-buffer
-    (simple-mpc-call-mpc t '("current" "-f" "%position%"))
-    (string-to-number (buffer-string))))
-
-(defun simple-mpc-get-amount-of-songs-in-playlist ()
-  "Return the number of songs in the current playlist."
-  (with-temp-buffer
-    (simple-mpc-call-mpc t "playlist")
-    (count-lines (point-min) (point-max))))
-
-(defun simple-mpc-message-current-volume ()
-  "Return the current volume."
-  ;; Use "%s" as format-string. Otherwise message will
-  ;; interpret the percent symbol in mpc's output as an
-  ;; incomplete format specifier.
-  (message "%s"
-   (with-temp-buffer
-     (simple-mpc-call-mpc t "volume")
-     (delete-char -1)  ;; delete trailing \n
-     (buffer-string))))
+    (simple-mpc-call-mpc t "status")
+    (let ((status (buffer-string)))
+      (string-match simple-mpc-status-re status)
+      (match-string (alist-get type simple-mpc-status-re-groups) status))))
 
 (defun simple-mpc-goto-line (line-number)
   "Go to beginning of line LINE-NUMBER.
